@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_check_duplicate_username_check_duplicate_username,check_duplicate_username.check_duplicate_username,model_check_duplicate_username_check_duplicate_username,,1,0,0,0

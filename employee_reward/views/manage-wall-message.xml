@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="manage_wall_message">
+            <field name="name">Manage Wall Message</field>
+            <field name="res_model">er.message</field>
+        </record>
+
+        <menuitem id="employeereward_manage_wall_message_menu" name="Manage Wall Message" parent="main_employeereward_menu"
+                  action="manage_wall_message" sequence="1" groups="employee_reward.config_menu_admin"/>
+
+        <!--<record id="manage_message_wall_kanban" model="ir.ui.view">-->
+            <!--<field name="name">manage.wall.message.kanban</field>-->
+            <!--<field name="model">er.message</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban string="Manage Message Wall" class="o_manage_message_wall_kanban" edit="false" create="false">-->
+                    <!--<templates id="manage_message_wall_kanban_view">-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div class="oe_kanban_global_click">-->
+                                <!--<div class="table-header">-->
+                                    <!--<div class="">-->
+                                        <!--<ul>-->
+                                            <!--<li>Date Sent</li>-->
+                                            <!--<li t-esc="">Kudos To</li>-->
+                                            <!--<li t-esc="">Kudos From</li>-->
+                                            <!--<li t-esc="">Level/Type</li>-->
+                                            <!--<li t-esc="">Action</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="manage_wall_message_tree" model="ir.ui.view">
+            <field name="name">manage.wall.message.tree</field>
+            <field name="model">er.message</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="sender"/>
+                    <field name="receiver"/>
+                    <field name="message_type"/>
+                    <field name="quality_id"/>
+                    <field name="active"/>
+                    <button string="Remove" name="remove_message_by_admin" type="object"
+                            attrs="{'invisible': [('active', '=', False)]}"/>
+                    <button string="Restore" name="remove_message_by_admin" type="object"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                </tree>
+            </field>
+        </record>
+        <!--<record model="ir.actions.act_window.view" id="manage_message_wall_kanban_action_view">-->
+            <!--<field name="act_window_id" ref="manage_wall_message"/>-->
+            <!--<field name="view_id" ref="manage_message_wall_kanban"/>-->
+            <!--<field name="view_mode">kanban</field>-->
+        <!--</record>-->
+        <record model="ir.actions.act_window.view" id="manage_message_wall_tree_action_view">
+            <field name="act_window_id" ref="manage_wall_message"/>
+            <field name="view_id" ref="manage_wall_message_tree"/>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

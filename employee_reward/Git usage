@@ -1,0 +1,11 @@
+Step 1: commit code
+Step 2: fetch from remote
+Step 3: pull from remote
+Step 4: check out YOUR branch
+Step 5: merge REMOTE branch to YOUR branch
+Step 6: push to remote
+Step 7: check out REMOTE branch
+Step 8: merge YOUR branch to REMOTE branch
+Step 9: push
+Step 10: check out YOUR branch
+-------

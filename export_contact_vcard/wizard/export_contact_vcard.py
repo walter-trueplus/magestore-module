@@ -28,7 +28,7 @@ class ExportContact(models.TransientModel):
                     writer.writerow(("N", item.name.encode('utf8') if item.name else ''))
                     writer.writerow(("FN", item.name.encode('utf8') if item.name else ''))
                     writer.writerow(("TEL;TYPE=CELL", item.phone if item.phone else ''))
-                    writer.writerow(("TEL;TYPE=WORK", item.mobile.encode('utf8') if item.mobile else ''))
+                    writer.writerow(("TEL;TYPE=WORK", item.mobile if item.mobile else ''))
                     writer.writerow(("EMAIL;TYPE=WORK", item.email if item.email else ''))
                     writer.writerow(("ORG;CHARSET=UTF-8", item.parent_id.name.encode('utf8') if item.parent_id.name else ''))
                     writer.writerow(("TITLE", item.title.name if item.title.name else ''))

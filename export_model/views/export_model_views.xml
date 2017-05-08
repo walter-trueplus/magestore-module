@@ -12,7 +12,8 @@
             <field name="model">checking_model</field>
             <field name="arch" type="xml">
                 <form string="Export">
-                    <field name="ir_model"/>
+                    <p><field name="ir_model"/></p>
+                    <p><field name="model_fields" widget="many2many_tags"/></p>
                     <button name="export_data" type="object" string="Export"/>
                 </form>
             </field>

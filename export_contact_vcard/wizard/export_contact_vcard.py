@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 import base64
 import cStringIO
 import contextlib
@@ -13,28 +13,27 @@ class ExportContact(models.TransientModel):
 
     name = fields.Char(string="File Name", readonly=True)
     data = fields.Binary(string="File", readonly=True)
-    contact_id = fields.Many2one('res.partner', string="Contact", required=True)
+    contact_id = fields.Many2many('res.partner', string="Contact", required=True)
     state = fields.Selection([('choose', 'choose'), ('get', 'get')], default='choose')
 
     @api.multi
     def do_export2(self):
         if self.contact_id:
-            contacts = self.env['res.partner'].search([('id', '=', self.contact_id.id)], limit=1)
             with contextlib.closing(cStringIO.StringIO()) as buf:
-
                 writer = csv.writer(buf, delimiter=":", quotechar='"')
-                writer.writerow(("BEGIN", "VCARD"))
-                writer.writerow(("VERSION", "3.0"))
-                for item in contacts:
-                    writer.writerow(("FULLNAME", item.name.encode('utf8') if item.name else ''))
-                    writer.writerow(("ORG", item.parent_id.name.encode('utf8') if item.parent_id.name else ''))
-                    writer.writerow(("TITLE", item.function.encode('utf8') if item.function else ''))
-                    writer.writerow(("TEL;TYPE=WORK,VOICE", item.phone.encode('utf8') if item.phone else ''))
-                    writer.writerow(("TEL;TYPE=HOME,VOICE", item.mobile.encode('utf8') if item.mobile else ''))
-                    writer.writerow(("ADR;TYPE=HOME", item.street.encode('utf8') if item.street else '', item.city.encode('utf8') if item.city else '', item.country_id.name.encode('utf8') if item.country_id.name else ''))
-                    writer.writerow(("EMAIL", item.email.encode('utf8') if item.email else ''))
+                for contact in self.contact_id:
+                    item = self.env['res.partner'].search([('id', '=', contact.id)], limit=1)
+                    writer.writerow(("BEGIN", "VCARD"))
+                    writer.writerow(("VERSION", "3.0"))
+                    writer.writerow(("N", item.name.encode('utf8') if item.name else ''))
+                    writer.writerow(("FN", item.name.encode('utf8') if item.name else ''))
+                    writer.writerow(("TEL;TYPE=CELL", item.phone if item.phone else ''))
+                    writer.writerow(("TEL;TYPE=WORK", item.mobile.encode('utf8') if item.mobile else ''))
+                    writer.writerow(("EMAIL;TYPE=WORK", item.email if item.email else ''))
+                    writer.writerow(("ORG;CHARSET=UTF-8", item.parent_id.name.encode('utf8') if item.parent_id.name else ''))
+                    writer.writerow(("TITLE", item.title.name if item.title.name else ''))
+                    writer.writerow(("END", "VCARD"))
 
-                writer.writerow(("END", "VCARD"))
                 out = base64.encodestring(buf.getvalue())
             self.write({
                 'state': 'get',

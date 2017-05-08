@@ -8,7 +8,7 @@
     'author': 'Magestore',
     'website': 'http://www.magestore.com',
     'summary': 'Export Contact',
-    'description': """rkizzasdasdas""",
+    'description': """""",
     'depends': [
         'stock'
     ],

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Module name + model + 'view' -->
+        <!-- employee-reward_hr_employee_view -->
+        <record model="ir.actions.act_window" id="employee-reward_er_myprofile_action">
+            <field name="name">My Profile</field>
+            <field name="res_model">er.myprofile</field>
+        </record>
+
+        <menuitem id="employee-reward_er_myprofile_menu" name="My Profile" parent="main_employeereward_menu"
+                  action="employee-reward_er_myprofile_action" sequence="2"/>
+
+        <record model="ir.ui.view" id="employee-reward_er_myprofile_form">
+            <field name="name">employee-reward.my_profile.form</field>
+            <field name="model">er.myprofile</field>
+            <field name="arch" type="xml">
+                <form string="My profile" create="false" delete="false" edit="false">
+                    <sheet>
+                        <header>
+                            <field name="avatar"/>
+                            <h2><field name="name" attrs="{'readonly': True}"/></h2>
+                        </header>
+                        <group string="My Info">
+                            <field name="department"/>
+                            <field name="team"/>
+                        </group>
+                        <group string="My Point ">
+                            <field name="balance_point"/>
+                            <field name="receive_point"/>
+                            <field name="all_time_point"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="employee-reward_er_myprofile_act_view">
+            <field name="act_window_id" ref="employee-reward_er_myprofile_action"/>
+            <field name="view_id" ref="employee-reward_er_myprofile_form"/>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

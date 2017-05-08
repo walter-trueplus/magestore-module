@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="reward_user_history_action">
+            <field name="name">Redemption History</field>
+            <field name="res_model">er.user.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="employeereward_reward_user_history" name="History" parent="employeereward_reward_user_menu"
+                  action="reward_user_history_action" sequence="11"/>
+
+        <!-- User reward history tree view -->
+        <record model="ir.ui.view" id="view_reward_user_tree">
+            <field name="name">User Reward List</field>
+            <field name="model">er.user.history</field>
+            <field name="arch" type="xml">
+                <tree string="History Reward" create="false">
+                    <field name="name" string="Rewards"/>
+                    <field name="user_requested_date" string="Requested Date"/>
+                    <field name="user_completed_date" string="Completed Date"/>
+                    <field name="user_reward_status" string="Status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_reward_user_form">
+            <field name="name">User Reward Detail</field>
+            <field name="model">er.user.history</field>
+            <field name="arch" type="xml">
+                <form string="Details" edit="false" create="false">
+                    <group string="Information">
+                        <field name="name" string="Rewards Name"/>
+                        <field name="user_requested_date" string="User Requested Date"/>
+                        <field name="user_completed_date" string="User Completed Date"/>
+                        <field name="user_reward_status" string="Status"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_reward_user_tree">
+            <field name="act_window_id" ref="reward_user_history_action"/>
+            <field name="view_id" ref="view_reward_user_tree"/>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_view_reward_user_form">
+            <field name="act_window_id" ref="reward_user_history_action"/>
+            <field name="view_id" ref="view_reward_user_form"/>
+            <field name="view_mode">form</field>
+        </record>
+    </data>
+</odoo>

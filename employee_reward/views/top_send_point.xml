@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="abc" model="ir.ui.view">
+            <field name="name">report.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <tree string="User list" default_order='usr_sent_point desc' create="false">
+                    <field name="name"></field>
+                    <field name="usr_receive_point"></field>
+                    <field name="usr_sent_point"></field>
+                    <field name="usr_balance_point"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="report_action_vtest">
+            <field name="name">List of master send point</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="abc"></field>
+            <field name="context">{'search_top_send':1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first reward
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="top_send_point" name="Top sent point" parent="employeereward_report_menu"
+                  action="report_action_vtest"/>
+
+        <record id="report_form" model="ir.ui.view">
+            <field name="name">report.form</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <form string="Employee" create="false">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" groups="hr.group_hr_user"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                       options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <field name="image" widget='image' class="oe_avatar"
+                               options='{"preview_image":"image_medium"}'/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Employee's Name"/>
+                            </h1>
+                        </div>
+                        <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time"
+                               options="{'no_create_edit': True}" groups="hr.group_hr_user"/>
+                        <notebook>
+                            <page name="public" string="Public Information">
+                                <group>
+                                    <group string="Contact Information">
+                                        <field name="address_id"
+                                               context="{'show_address': 1}"
+                                               options='{"always_reload": True, "highlight_first_line": True}'/>
+                                        <field name="mobile_phone"/>
+                                        <field name="work_location"/>
+                                        <field name="work_email" widget="email"/>
+                                        <field name="work_phone"/>
+                                    </group>
+                                    <group string="Position">
+                                        <field name="department_id"/>
+                                        <field name="job_id"/>
+                                        <field name="parent_id"/>
+                                        <field name="coach_id"/>
+                                        <field name="calendar_id"/>
+                                    </group>
+                                </group>
+                                <field name="notes" placeholder="Other Information ..." colspan="4"/>
+                            </page>
+                            <page string="Personal Information" groups="hr.group_hr_user">
+                                <group>
+                                    <group string="Citizenship &amp; Other Information">
+                                        <field name="country_id" options='{"no_open": True, "no_create": True}'/>
+                                        <field name="identification_id" groups="hr.group_hr_user"/>
+                                        <field name="passport_id" groups="hr.group_hr_user"/>
+                                        <field name="bank_account_id"/>
+                                    </group>
+                                    <group string="Contact Information">
+                                        <field name="address_home_id"
+                                               context="{'show_address': 1}"
+                                               options='{"always_reload": True, "highlight_first_line": True}'/>
+                                    </group>
+                                    <group string="Status">
+                                        <field name="gender"/>
+                                        <field name="marital"/>
+                                    </group>
+                                    <group string="Birth">
+                                        <field name="birthday"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="HR Settings" groups="hr.group_hr_user">
+                                <group>
+                                    <group string='Status' name="active_group">
+                                        <field name="company_id" groups="base.group_multi_company"/>
+                                        <field name="user_id" string="Related User"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

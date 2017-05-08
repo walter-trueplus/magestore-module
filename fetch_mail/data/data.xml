@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record model="ir.mail_server" id="outgoing_gmail_v1">
+            <field name="name">Outgoing Gmail Server</field>
+            <field name="smtp_host">smtp.gmail.com</field>
+            <field name="smtp_port">465</field>
+            <field name="smtp_encryption">ssl</field>
+            <field name="smtp_user">mars@trueplus.vn</field>
+            <field name="smtp_pass">marsorxmars</field>
+        </record>
+        <record model="fetchmail.server" id="incoming_gmail_abc_ffww">
+        	<field name="name">Incoming Gmail Server</field>
+        	<field name="is_ssl">TRUE</field>
+        	<field name="port">995</field>
+        	<field name="type">pop</field>
+        	<field name="server">pop.gmail.com</field>
+        	<field name="user">mars@trueplus.vn</field>
+        	<field name="password">marsorxmars</field>
+        </record>
+    </data>
+</odoo>

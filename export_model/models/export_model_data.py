@@ -7,12 +7,6 @@ class ExportModelData(models.Model):
     _name = "checking_model"
 
     ir_model = fields.Many2one('ir.model')
-    # model_fields = fields.Many2many('ir.model.fields', compute='_compute_field')
-
-    # @api.depends('ir_model')
-    # def _compute_field(self):
-    #     for obj in self:
-    #         obj.model_fields = self.env['ir.model'].search([('model', '=', self.ir_model.model)])
 
     def export_data(self):
         print "enter here"

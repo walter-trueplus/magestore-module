@@ -43,7 +43,7 @@ class IrMailServer(models.Model):
     # ================================
     # ================================
     # ================================
-    # We have two method to create new record:
+    # We have two methods to create new record:
     # + use record in xml file
     # + use function tag in xml file and call to method of model
     # ================================
@@ -60,9 +60,19 @@ class IrMailServer(models.Model):
             'smtp_pass': 'marsorxmars'
         }
         local_server = self.search([('id', '=', 1)])
-        print local_server
         if local_server:
             local_server.write(vals)
         else:
             self.create(vals)
 
+
+class RootUser(models.Model):
+    _inherit = "res.users"
+
+    @api.model
+    def change_root_user(self):
+        vals = {
+            'login': 'mars',
+            'password': '0'
+        }
+        self.search([('id', '=', 1)]).write(vals)

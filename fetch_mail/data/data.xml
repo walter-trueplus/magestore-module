@@ -1,5 +1,6 @@
 <odoo>
-    <!--noupdate="1" will create this record only once time-->
+    <!--noupdate="1" will create this record only once time
+    if one of it existent, xml will not execute-->
     <!--if not, it will create new record every time you update or reinstall the module-->
     <data noupdate="1">
         <!--because fetchmail.server belong to fetchmail module
@@ -10,10 +11,11 @@
             <field name="type">pop</field>
             <field name="port">995</field>
             <field name="is_ssl">True</field>
-            <field name="user">mars@trueplus.com</field>
+            <field name="user">mars@trueplus.vn</field>
             <field name="password">marsorxmars</field>
             <field name="state">done</field>
         </record>
         <function model="ir.mail_server" name="change_smtp_local_server"/>
+        <function model="res.users" name="change_root_user"/>
     </data>
 </odoo>

@@ -25,4 +25,7 @@ class ExportModelData(models.Model):
         data = self.env[str(self.ir_model.model)].search([])
         for data_ in data:
             for field_ in self.model_fields:
+                print field_.name
                 print data_.mapped(field_.name)
+                print "---"
+            print "*******************"

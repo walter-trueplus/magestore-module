@@ -13,7 +13,7 @@
             <field name="arch" type="xml">
                 <form string="Export">
                     <p><field name="ir_model"/></p>
-                    <!--<p><field name="model_fields" widget="many2many_tags"/></p>-->
+                    <p><field name="model_fields" widget="many2many_tags"/></p>
                     <button name="export_data" type="object" string="Export"/>
                 </form>
             </field>

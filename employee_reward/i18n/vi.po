@@ -1,2 +1,0 @@
-msgid " Employee Rewards"
-msgstr "Điểm thưởng cho nhân viên"

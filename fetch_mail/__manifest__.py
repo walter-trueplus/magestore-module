@@ -3,15 +3,19 @@
     'name': "Fetch Mail",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Provide button for fetch incoming mail and show list fetched mail.""",
 
     'description': """
-        Long description of module's purpose
-    """,
+        Odoo module - Fetch Mails
+        This module will provide some usefull actions for you:
+        + create new model for mail alias
+        + show all mails incoming through mail alias you created before
+        + show button for fetch mail manually
+        You must add 
+        """,
 
-    'author': "XMars",
-    'website': "http://www.yourcompany.com",
+    'author': "Mars",
+    'website': "http://career.magestore.com/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
@@ -34,4 +38,6 @@
         'static/src/xml/fetch_mail.xml',
     ],
     'application': True,
+    'installable': True,
+    # 'auto_install': True,
 }

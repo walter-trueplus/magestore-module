@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
-import werkzeug
 
-from odoo import http, _
+from odoo import http
 from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
-from odoo.addons.auth_signup.models.res_users import SignupError
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
@@ -36,7 +34,8 @@ class ResetPassword(AuthSignupHome):
             *args, **kw)
         qcontext = result.qcontext
         # get parameter in url
-        if 'error' not in qcontext and 'reset_directly' in request.httprequest.query_string:
+        if 'error' not in qcontext and 'reset_directly' in request.httprequest.query_string and qcontext.get('reset_password_enabled'):
+            print qcontext
             user = request.env['res.users'].search(
                 [('id', '=', request.session.uid)])
             login = user.login

@@ -13,8 +13,6 @@ class FetchMail(models.Model):
     sender_email = fields.Char(
         string="Sender Email", compute="get_sender_email")
 
-    # body = fields.Text(compute="_get_body_email")
-
     @api.one
     def get_sender_email(self):
         if self.message_ids:
@@ -49,6 +47,7 @@ class IrMailServer(models.Model):
     # ================================
     # ================================
     # ================================
+
     @api.model
     def change_smtp_local_server(self):
         vals = {
@@ -66,13 +65,8 @@ class IrMailServer(models.Model):
             self.create(vals)
 
 
-class RootUser(models.Model):
-    _inherit = "res.users"
+class MailAlias(models.Model):
+    _inherit = 'mail.alias'
 
-    @api.model
-    def change_root_user(self):
-        vals = {
-            'login': 'mars',
-            'password': '0'
-        }
-        self.search([('id', '=', 1)]).write(vals)
+    def get_fetch_mail_model_id(self):
+        return 1

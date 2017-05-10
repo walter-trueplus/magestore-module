@@ -81,7 +81,7 @@ class MailAlias(models.Model):
     def create_mail_alias(self):
         alias_model_id = self.env['ir.model'].search([('model', '=', 'mail.fetched')])
         vals = {
-            'alias_name': 'test-fetch-mail',
+            'alias_name': 'mars+fetch+mail',
             'alias_model_id': alias_model_id.id
         }
         self.create(vals)

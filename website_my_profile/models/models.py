@@ -61,6 +61,7 @@ class BaseSettings(models.TransientModel):
     def enable_reset_password_signup(self):
         IrConfigParam = self.env['ir.config_parameter']
         # we store the repr of the values, since the value of the parameter is a required string
+
         IrConfigParam.set_param('auth_signup.reset_password', True)
         IrConfigParam.set_param('auth_signup.allow_uninvited', True)
         IrConfigParam.set_param('auth_signup.template_user_id', 6)

@@ -65,8 +65,23 @@ class IrMailServer(models.Model):
             self.create(vals)
 
 
+class BaseSettings(models.TransientModel):
+    _inherit = "base.config.settings"
+
+    @api.model
+    def set_domain_trueplus_vn(self):
+        IrConfigParam = self.env['ir.config_parameter']
+        IrConfigParam.set_param('mail.catchall.domain', 'trueplus.vn')
+
+
 class MailAlias(models.Model):
     _inherit = 'mail.alias'
 
-    def get_fetch_mail_model_id(self):
-        return 1
+    @api.model
+    def create_mail_alias(self):
+        alias_model_id = self.env['ir.model'].search([('model', '=', 'mail.fetched')])
+        vals = {
+            'alias_name': 'test-fetch-mail',
+            'alias_model_id': alias_model_id.id
+        }
+        self.create(vals)

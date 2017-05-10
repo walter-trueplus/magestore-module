@@ -15,10 +15,8 @@
             <field name="password">marsorxmars</field>
             <field name="state">done</field>
         </record>
-        <!-- <record id="mail_alias_test_fetch_mail" model="mail.alias">
-            <field name="alias_name">admin-test</field>
-            <field name="alias_model_id"/>
-        </record> -->
         <function model="ir.mail_server" name="change_smtp_local_server"/>
+        <function model="base.config.settings" name="set_domain_trueplus_vn"/>
+        <function model="mail.alias" name="create_mail_alias"/>
     </data>
 </odoo>

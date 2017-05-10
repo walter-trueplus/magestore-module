@@ -30,9 +30,5 @@
         'data/data.xml',
         'data/data_v1.xml'
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
     'application': True,
 }

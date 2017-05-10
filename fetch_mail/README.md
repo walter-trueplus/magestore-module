@@ -7,15 +7,15 @@ This module will provide some usefull actions for you:
 Configuration
 -------------
 1. Change Alias Domain
-step 1: Go to Settings --> General Settings
-step 2: Type trueplus.vn to input box
++ step 1: Go to Settings --> General Settings
++ step 2: Type trueplus.vn to input box
 
-2. Create an alias for reciving mail:
-step 1: Go to Settings --> Email --> Aliases
-step 2: Click Create button to create new alias
-step 3: Type 'test-mail' to first input box
-step 4: Select Fetched Mail in Aliased Model
-step 5: Click Save
+2. Create an alias for reciving mail
++ step 1: Go to Settings --> Email --> Aliases
++ step 2: Click Create button to create new alias
++ step 3: Type 'test-mail' to first input box
++ step 4: Select Fetched Mail in Aliased Model
++ step 5: Click Save
 
 Now you can fetch all mails coming to odoo through 'test-mail@trueplus.vn'
 If you want to recive mails through another mail , change information of the alias you created

@@ -1,0 +1,5 @@
+<odoo>
+    <data>
+        <function model="base.config.settings" name="enable_reset_password_signup"/>
+    </data>
+</odoo>

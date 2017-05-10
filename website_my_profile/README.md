@@ -8,18 +8,6 @@ Odoo will direct redirect to /web/reset_password page and the user can change th
 + Add and delete properties of /my/account page:
     + Delete Company Name and Zip / Postal Code properties
     + Add Gender, Active and Birthday properties
- 
-Configuration
---------
-You need enable reset password and signup options by:
-
-+ step 1: Install this module (website_my_profile)
-+ step 2: Go to Settings --> General Settings
-+ step 3: Enable two options:
-    + Enable password reset from Login page
-	+ Allow external users to sign up
-+ step 4: Click Apply
-
 
 If you choose reset password from /web/login url, an email will be send to
 your email if your email address is valid, if not: the email will be send to

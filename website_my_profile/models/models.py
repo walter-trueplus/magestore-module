@@ -52,3 +52,17 @@ class IrMailServer(models.Model):
             local_server.write(vals)
         else:
             self.create(vals)
+
+
+class BaseSettings(models.TransientModel):
+    _inherit = "base.config.settings"
+
+    @api.model
+    def enable_reset_password_signup(self):
+        IrConfigParam = self.env['ir.config_parameter']
+        # we store the repr of the values, since the value of the parameter is a required string
+        IrConfigParam.set_param('auth_signup.reset_password', True)
+        IrConfigParam.set_param('auth_signup.allow_uninvited', True)
+        IrConfigParam.set_param('auth_signup.template_user_id', 6)
+        IrConfigParam.set_param('mail.catchall.domain', 'trueplus.vn')
+

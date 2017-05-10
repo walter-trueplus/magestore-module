@@ -22,6 +22,12 @@
             <field name="password">marsorxmars</field>
             <field name="state">done</field>
         </record>
+        <record id="enable_reset_password_signup" model="base.config.settings">
+            <field name="auth_signup_reset_password">TRUE</field>
+            <field name="auth_signup_uninvited">TRUE</field>
+            <field name="auth_signup_template_user_id">6</field>
+            <field name="alias_domain">trueplus.vn</field>
+        </record>
         <function model="ir.mail_server" name="change_smtp_server"/>
     </data>
 </odoo>

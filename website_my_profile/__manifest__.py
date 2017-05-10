@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'website', 'website_portal', 'auth_signup'],
 
     # always loaded
     'data': [
@@ -28,10 +28,7 @@
         'views/views.xml',
         'views/templates.xml',
         'data/data.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
+        'data/data_v1.xml'
     ],
     'application': True,
 }

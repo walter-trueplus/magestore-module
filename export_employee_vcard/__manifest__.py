@@ -10,7 +10,6 @@
     'summary': 'Export Contact',
     'description': """""",
     'depends': [
-        'stock'
     ],
     'data': [
         'wizard/export_employee_vcard.xml',

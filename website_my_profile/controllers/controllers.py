@@ -34,7 +34,8 @@ class ResetPassword(AuthSignupHome):
             *args, **kw)
         qcontext = result.qcontext
         # get parameter in url
-        if 'error' not in qcontext and 'reset_directly' in request.httprequest.query_string and qcontext.get('reset_password_enabled'):
+        if 'error' not in qcontext and 'reset_directly' in request.httprequest.query_string and qcontext.get(
+                'reset_password_enabled'):
             print qcontext
             user = request.env['res.users'].search(
                 [('id', '=', request.session.uid)])
@@ -51,16 +52,3 @@ class ResetPassword(AuthSignupHome):
             qcontext['login'] = login
             qcontext['birthday'] = partner.birthday
         return result
-
-    def do_signup(self, qcontext):
-        values = {key: qcontext.get(key) for key in (
-            'login', 'name', 'birthday', 'password')}
-        assert values.values(), "The form was not properly filled in."
-        assert values.get('password') == qcontext.get(
-            'confirm_password'), "Passwords do not match; please retype them."
-        supported_langs = [lang['code'] for lang in request.env[
-            'res.lang'].sudo().search_read([], ['code'])]
-        if request.lang in supported_langs:
-            values['lang'] = request.lang
-        self._signup_with_values(qcontext.get('token'), values)
-        request.env.cr.commit()

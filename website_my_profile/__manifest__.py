@@ -3,15 +3,28 @@
     'name': "My Profiles Website",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Create Change Password button and change some properties of My Account page.""",
 
     'description': """
-        Long description of module's purpose
-    """,
+        This module will adds some property for /my/account page and /web/signup page:
+        
+        + Add change password button to /my/account page: if that is not first time the user change password,Odoo will direct redirect to /web/reset_password page and the user can change the password directly
+        + Add and delete properties of /my/account page
+        
+            + Delete Company Name and Zip / Postal Code properties
+            + Add Gender, Active and Birthday properties
+        
+        If you choose reset password from /web/login url, an email will be send to
+        your email if your email address is valid, if not: the email will be send to
+        mars@trueplus.vn (can change)
+        
+        If you click Reset Password button in /my/account and it's your first time 
+        you reset password, an email will be send to
+        your email. 
+        If not first time, you will be redirect to /web/reset_password?reset_directly=directly""",
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Magestore.com",
+    'website': "Magestore.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml

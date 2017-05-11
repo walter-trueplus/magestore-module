@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Export Contact',
+    'name': 'Download contact',
     'version': '1.0.0',
     'category': 'Tools',
     'sequence': 2,
     'author': 'Magestore',
     'website': 'http://www.magestore.com',
     'summary': 'Export Contact',
-    'description': """rkizzasdasdas""",
+    'description': """This module allow user to export contact to vCard file and download directly""",
     'depends': [
-        'stock'
     ],
     'data': [
         'wizard/export_contact_vcard.xml',
+        'wizard/button_export_in_detail_view.xml',
     ],
     'sequence': 2,
-    'application': True,
+    'application': False,
     'installable': True,
     'auto_install': False,
 }

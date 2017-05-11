@@ -28,7 +28,7 @@
             </field>
         </record>
         <record id="open_view_fetch_mail_tree" model="ir.actions.act_window">
-            <field name="name">Fetched Mail</field>
+            <field name="name">All fetched mais</field>
             <field name="res_model">mail.fetched</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -37,9 +37,9 @@
             <field name="name">Fetch Mail</field>
             <field name="tag">run.fetch.mail</field>
         </record>
-        <menuitem id="menu_fetch_mail_main" name="Fetched Mail"/>
-        <menuitem id="menu_view_all_fetch_mail" name="All fetch mails" action="open_view_fetch_mail_tree"
-                  parent="menu_fetch_mail_main"/>
-        <menuitem id="menu_fetch_button" name="Runnnn" action="action_fetch_mail_button" parent="menu_fetch_mail_main"/>
+        <menuitem id="menu_fetch_mail_setting" parent="base.menu_email" name="Fetch Mails"/>
+        <menuitem id="menu_view_all_fetch_mail" action="open_view_fetch_mail_tree"
+                  parent="menu_fetch_mail_setting"/>
+        <menuitem id="menu_fetch_button" name="Runnnn" action="action_fetch_mail_button" parent="menu_fetch_mail_setting"/>
     </data>
 </odoo>

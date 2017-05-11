@@ -58,12 +58,13 @@ class BaseSettings(models.TransientModel):
     _inherit = "base.config.settings"
 
     @api.model
-    def enable_reset_password_signup(self):
+    def set_domain_and_enable_reset_signup(self):
         IrConfigParam = self.env['ir.config_parameter']
-        # we store the repr of the values, since the value of the parameter is a required string
-
-        IrConfigParam.set_param('auth_signup.reset_password', True)
-        IrConfigParam.set_param('auth_signup.allow_uninvited', True)
-        IrConfigParam.set_param('auth_signup.template_user_id', 6)
+        template_user_id = self.env['res.users'].search([('active', '=', False ),('login','=','portaltemplate')]).id
+        if not template_user_id:
+            template_user_id = 1
         IrConfigParam.set_param('mail.catchall.domain', 'trueplus.vn')
+        IrConfigParam.set_param('auth_signup.reset_password', 'True')
+        IrConfigParam.set_param('auth_signup.allow_uninvited', 'True')
+        IrConfigParam.set_param('auth_signup.template_user_id', template_user_id)
 

@@ -41,7 +41,6 @@
         'views/views.xml',
         'views/templates.xml',
         'data/data.xml',
-        'data/data_v1.xml'
     ],
     'application': True,
 }

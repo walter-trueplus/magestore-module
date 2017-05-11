@@ -15,7 +15,7 @@
     'author': "Magestore.com",
     'website': "Magestore.com",
 
-    'category': 'Employee',
+    'category': 'Tools',
     'version': '1.0',
 
     'depends': ['base', 'hr'],

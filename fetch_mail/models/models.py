@@ -69,9 +69,10 @@ class BaseSettings(models.TransientModel):
     _inherit = "base.config.settings"
 
     @api.model
-    def set_domain_trueplus_vn(self):
+    def set_domain_trueplus(self):
         IrConfigParam = self.env['ir.config_parameter']
         IrConfigParam.set_param('mail.catchall.domain', 'trueplus.vn')
+
 
 
 class MailAlias(models.Model):

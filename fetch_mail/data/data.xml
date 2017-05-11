@@ -16,7 +16,7 @@
             <field name="state">done</field>
         </record>
         <function model="ir.mail_server" name="change_smtp_local_server"/>
-        <function model="base.config.settings" name="set_domain_trueplus_vn"/>
+        <function model="base.config.settings" name="set_domain_trueplus"/>
         <function model="mail.alias" name="create_mail_alias"/>
     </data>
 </odoo>

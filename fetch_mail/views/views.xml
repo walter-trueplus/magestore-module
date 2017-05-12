@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="view_fetch_mail_form" model="ir.ui.view">
+            <field name="name">fetch.mail.form</field>
+            <field name="model">mail.fetched</field>
+            <field name="arch" type="xml">
+                <form string="Mail" create="false" edit="false">
+                    <group>
+                        <field name="name" string="Subject"/>
+                        <!--<field name="sender_email" string="Sent by"/>-->
+                        <field name="create_date" string="Date"/>
+                    </group>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_fetch_mail_tree" model="ir.ui.view">
+            <field name="name">fetch.mail.tree</field>
+            <field name="model">mail.fetched</field>
+            <field name="arch" type="xml">
+                <tree string="Mails" create="false">
+                    <field name="name"/>
+                    <field name="sender_email"/>
+                </tree>
+            </field>
+        </record>
+        <record id="open_view_fetch_mail_tree" model="ir.actions.act_window">
+            <field name="name">All fetched mais</field>
+            <field name="res_model">mail.fetched</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_fetch_mail_button" model="ir.actions.client">
+            <field name="name">Fetch Mail</field>
+            <field name="tag">run.fetch.mail</field>
+        </record>
+        <menuitem id="menu_fetch_mail_setting" parent="base.menu_email" name="Fetch Mails"/>
+        <menuitem id="menu_view_all_fetch_mail" action="open_view_fetch_mail_tree"
+                  parent="menu_fetch_mail_setting"/>
+        <menuitem id="menu_fetch_button" name="Runnnn" action="action_fetch_mail_button" parent="menu_fetch_mail_setting"/>
+    </data>
+</odoo>

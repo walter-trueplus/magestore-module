@@ -35,8 +35,9 @@ odoo.define('fetch.mail.run', function(require) {
             var self = this;
             var fetch_model = new Model('mail.fetched');
             fetch_model.call('run_fetch_mail',[[]]);
-            console.log('fetch done');
-//            location.reload();
+            for(var i = 0; i < 2; i++){
+                location.reload();
+            }
         },
     });
 

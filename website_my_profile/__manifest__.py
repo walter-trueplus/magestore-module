@@ -23,8 +23,8 @@
         your email. 
         If not first time, you will be redirect to /web/reset_password?reset_directly=directly""",
 
-    'author': "Magestore.com",
-    'website': "Magestore.com",
+    'author': "magestore.com",
+    'website': "magestore.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml

@@ -23,12 +23,9 @@ class FetchMail(models.Model):
         if self.message_ids:
             self.body = self.message_ids[0].body
 
-    @api.multi
     def run_fetch_mail(self):
         self.env['ir.cron'].search(
             [('name', '=', 'Fetchmail Service')], limit=1).method_direct_trigger()
-        print '=========&&&&&&&&&&&&&*******************s xml'
-
 
 
 class IrMailServer(models.Model):

@@ -32,8 +32,8 @@
     
     Now, You can fetch all mails coming to 'your+alias@your.domain'.""",
 
-    'author': "Magestore.com",
-    'website': "Magestore.com",
+    'author': "magestore.com",
+    'website': "magestore.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml

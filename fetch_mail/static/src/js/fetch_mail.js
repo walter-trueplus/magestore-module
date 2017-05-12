@@ -18,16 +18,13 @@ odoo.define('fetch.mail.run', function(require) {
         },
 
         b_click: function() {
-            var fetch_model = new Model('cron.fetch');
+            var fetch_model = new Model('mail.fetched');
             fetch_model.call('run_fetch_mail',[[]]);
         },
 
     });
 
     var Extends = ListView.include({
-//        init: function(){
-//
-//        },
         // add listener for fetch_mail button
         render_buttons: function() {
             this._super.apply(this, arguments);
@@ -36,33 +33,10 @@ odoo.define('fetch.mail.run', function(require) {
         },
         fetch_all_mail:function(){
             var self = this;
-            console.log('logllll');
-            var fetch_model = new Model('cron.fetch');
+            var fetch_model = new Model('mail.fetched');
             fetch_model.call('run_fetch_mail',[[]]);
-//            var mail_fetch = new Model('mail.fetched');
-//            mail_fetch.call('reload_page', [[]]);
-//            this.do_action({
-//                type: 'ir.actions.act_window',
-//                res_model: "mail.fetched",
-//                views: [[false, 'tree']],
-//                target: 'current',
-//                tag: 'reload',
-//                nodestroy: true
-//            });
-
-//            var ir_ui_view = new Model('ir.ui.view');
-////            id of form and tree will put to action open tree fetched mail
-//            var form_fetch_mail_id,
-//                tree_fetch_mail_id;
-//            ir_ui_view.call('search',[[['arch_fs', '=', 'fetch_mail/views/views.xml']]]).then(function(data){
-//                console.log(data);
-//                self.do_action({
-//                    type: 'ir.actions.act_window',
-//                    res_model: 'mail.fetched',
-//                    views: [[382, 'tree']],
-//                });
-//            });
-
+            console.log('fetch done');
+//            location.reload();
         },
     });
 

@@ -23,37 +23,12 @@ class FetchMail(models.Model):
         if self.message_ids:
             self.body = self.message_ids[0].body
 
-    def reload_page(self):
-        # self.ensure_one()
-        # model_obj = self.env['ir.model.data']
-        # data_id = model_obj._get_id('mail_fetched', 'view_fetch_mail_tree')
-        # view_id = model_obj.browse(data_id).res_id
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'name': 'String',
-        #     'tag': 'reload',
-        #     'res_model': 'mail.fetched',
-        #     'view_type': 'tree',
-        #     'view_mode': 'form',
-        #     'view_id': view_id,
-        #     'target': 'current',
-        #     'nodestroy': True,
-        # }
-        print 'oh yeeeeaaa'
-        # return {'type': 'ir.actions.client', 'tag': 'reload'}
-        self.env['cron.fetch'].run_fetch_mail()
-
-class MailCron(models.Model):
-    _name = "cron.fetch"
-
-    name = fields.Char(string="Fetch Mail")
-
     @api.multi
     def run_fetch_mail(self):
         self.env['ir.cron'].search(
             [('name', '=', 'Fetchmail Service')], limit=1).method_direct_trigger()
-        print "abc vao day de"
-        return "dm co vao day khong"
+        print '=========&&&&&&&&&&&&&*******************s xml'
+
 
 
 class IrMailServer(models.Model):
@@ -93,7 +68,6 @@ class BaseSettings(models.TransientModel):
     def set_domain_trueplus(self):
         IrConfigParam = self.env['ir.config_parameter']
         IrConfigParam.set_param('mail.catchall.domain', 'trueplus.vn')
-
 
 
 class MailAlias(models.Model):

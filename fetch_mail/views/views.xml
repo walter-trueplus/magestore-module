@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <record id="view_fetch_mail_form" model="ir.ui.view">
-            <field name="name">Fetch Mail Form</field>
+            <field name="name">Fetched Mail Form</field>
             <field name="model">mail.fetched</field>
             <field name="arch" type="xml">
                 <form string="Mail" create="false" edit="false">

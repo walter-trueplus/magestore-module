@@ -29,26 +29,6 @@ class MyProfile(website_account):
 
 
 class PasswordSignup(AuthSignupHome):
-    # @http.route()
-    # def web_auth_reset_password(self, *args, **kw):
-    #     result = super(PasswordSignup, self).web_auth_reset_password(
-    #         *args, **kw)
-    #     qcontext = result.qcontext
-    #
-    #     # get parameter in url
-    #     if 'error' not in qcontext and 'reset_directly' in request.httprequest.query_string and qcontext.get(
-    #             'reset_password_enabled'):
-    #         user = request.env['res.users'].search(
-    #             [('id', '=', request.session.uid)])
-    #         assert user, "No login provided."
-    #         login = user.login
-    #         partner = request.env['res.partner'].search(
-    #             [('id', '=', user.partner_id.id)])
-    #         qcontext['name'] = partner.name
-    #         qcontext['login'] = login
-    #         qcontext['birthday'] = partner.birthday
-    #         qcontext['reset_direct'] = "impressive"
-    #     return result
 
     def do_signup(self, qcontext):
         values = {key: qcontext.get(key) for key in (

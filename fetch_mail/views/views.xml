@@ -26,6 +26,7 @@
                 </tree>
             </field>
         </record>
+        
         <record id="open_view_fetch_mail_tree" model="ir.actions.act_window">
             <field name="name">All fetched mails</field>
             <field name="res_model">mail.fetched</field>
@@ -43,13 +44,7 @@
                   action="fetchmail.action_email_server_tree"/>
         <menuitem id="menu_outgoing_fetch_mail_server" parent="menu_fetch_mail_setting" name="Outgoing Mail Servers"
                   action="base.action_ir_mail_server_list"/>
-        <!--<record id="action_server_fetch_mail" model="ir.actions.server">-->
-            <!--<field name="name">Fetch Mail Action Server</field>-->
-            <!--<field name="condition">True</field>-->
-            <!--<field name="type">ir.actions.server</field>-->
-            <!--<field name="model_id" ref="model_mail_fetched"/>-->
-            <!--<field name="state">code</field>-->
-            <!--<field name="code">action = env["mail.fetched"].run_fetch_mail()</field>-->
-        <!--</record>-->
+        <menuitem id="menu_alias_server" parent="menu_fetch_mail_setting" name="Aliases"
+                  action="mail.action_view_mail_alias"/>
     </data>
 </odoo>

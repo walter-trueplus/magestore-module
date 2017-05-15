@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="setting_view" model="ir.ui.view">
+            <field name="model">sale.config.settings</field>
+            <field name="inherit_id" ref="sales_team.view_sale_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='customers']" position="after">
+                    <group string="Vendor" name="vendors">
+                    <field name="warning_option" widget="radio"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+<!--<group string="Customers" name="customers">-->
+<!--<field name="module_website_quote" widget="radio" modifiers="{}"-->
+       <!--on_change="onchange_module(module_website_quote, 'module_website_quote')"/>-->
+<!--</group>-->

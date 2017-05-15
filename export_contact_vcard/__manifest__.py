@@ -9,15 +9,14 @@
     'website': 'http://www.magestore.com',
     'summary': 'Export Contact',
     'description': """This module allow user to export contact to vCard file and download directly""",
-    'depends': [
-    ],
+    'depends': ['base'],
     'data': [
         'wizard/export_contact_vcard.xml',
         'wizard/button_export_in_detail_view.xml',
     ],
+    'qweb': ['static/src/xml/qweb.xml'],
     'sequence': 2,
-    'application': False,
+    'application': True,
     'installable': True,
     'auto_install': False,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

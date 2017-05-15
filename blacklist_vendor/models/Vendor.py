@@ -9,3 +9,4 @@ class vendor(models.Model):
     _inherit = ['res.partner']
     in_blacklist = fields.Boolean(string='In black list?')
 
+

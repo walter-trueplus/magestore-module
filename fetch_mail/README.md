@@ -46,10 +46,11 @@ mike@trueplus.vn
 + step 4: Select Fetched Mail in Aliased Model
 + step 5: Click Save
 
-Alias bạn vừa tạo hoạt động như một bộ lọc. Bạn có thể có nhiều bộ lọc cho cùng 1 địa chỉ mail mike@trueplus.vn.
+Alias bạn vừa tạo hoạt động như một bộ lọc. 
+Bạn có thể có nhiều bộ lọc cho cùng 1 địa chỉ mail mike@trueplus.vn.
 Ví dụ: mike@trueplus.vn coi như là địa chỉ nhà của bạn thì mike+test1trueplus.vn, mike+test2trueplus.vn
 giống như phòng ngủ, phòng khách của bạn.
-Tất cả email đến mike@trueplus.vn sẽ sử dụng 'Incoming Gmail Server 1' như là hộp thư của nhà bạn,
+Tất cả email gửi đến mike@trueplus.vn sẽ sử dụng 'Incoming Gmail Server 1' như là hộp thư của nhà bạn,
 nó sẽ phân loại thư theo theo các ký tự nằm sau dấu +.
 Tất cả email gửi đi từ mike@trueplus.vn sẽ sử dụng 'Outgoing Gmail Server 1' để gửi thư đi.
 

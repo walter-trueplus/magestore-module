@@ -10,7 +10,7 @@
             </xpath>
         </field>
     </record>
-
+    #acbsac
     <record id="view_employees" model="ir.ui.view">
         <field name="name">hr.employee.kanban</field>
         <field name="model">hr.employee</field>

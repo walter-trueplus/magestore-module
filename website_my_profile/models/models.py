@@ -6,9 +6,7 @@ from odoo import models, fields, api
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    birthday = fields.Date(string='Birthday')
-    # gender_id = fields.Many2one(
-    #     'hr.employee.gender', string='Gender')
+    birthday = fields.Date(string='Birthday', default=fields.Date.today())
     gender = fields.Selection(
         [('Male', 'Male'), ('Female', 'Female'), ('Unknow', 'Unknow')],
         string='Gender')

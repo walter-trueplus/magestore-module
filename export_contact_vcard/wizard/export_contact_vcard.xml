@@ -37,6 +37,5 @@
                     target="new"
                     id="action_export_vcard"
         />
-
     </data>
 </odoo>

@@ -8,18 +8,12 @@ from odoo import api, fields, models
 
 
 class DownloadContact(models.Model):
-    # _name = 'export.contact.wizard'
     _inherit = 'res.partner'
 
     data = fields.Binary(string="File", readonly=True)
 
     @api.multi
     def download(self):
-        # id = self.id
-        # print self.name
-        # other_object = self.env['export.contact.wizard']
-        # other_object.do_export2(id)
-        # print self.id
         if self.id:
             with contextlib.closing(cStringIO.StringIO()) as buf:
                 writer = csv.writer(buf, delimiter=":", quotechar='"')

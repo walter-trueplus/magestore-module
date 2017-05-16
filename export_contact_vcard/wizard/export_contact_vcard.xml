@@ -8,7 +8,7 @@
                 <form string="Export Contact">
                     <group>
                         <p>Here is the exported file:
-                            <field name="data" readonly="1"/>
+                            <field name="data" readonly="1" filename="name"/>
                         </p>
                     </group>
                     <footer>
@@ -30,10 +30,12 @@
 
         <act_window name="Export Contact"
                     res_model="res.partner"
+                    src_model="res.partner"
                     view_mode="form"
                     multi="True"
                     target="new"
                     id="action_export_vcard"
         />
+
     </data>
 </odoo>

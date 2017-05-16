@@ -15,7 +15,6 @@
         'wizard/export_employee_vcard.xml',
         'wizard/button_export_in_detail_view.xml',
     ],
-    'qweb': ['static/src/xml/qweb.xml'],
     'sequence': 2,
     'application': True,
     'installable': True,

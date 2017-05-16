@@ -29,11 +29,12 @@ class MyProfile(website_account):
 
 
 class PasswordSignup(AuthSignupHome):
-
     @http.route()
     def web_auth_signup(self, *args, **kw):
         res = super(PasswordSignup, self).web_auth_signup(*args, **kw)
         qcontext = res.qcontext
+        if request.session.uid:
+            return request.redirect('/')
         if qcontext.get('error_detail'):
             qcontext['error'] = qcontext['error_detail']
         return res
@@ -41,14 +42,13 @@ class PasswordSignup(AuthSignupHome):
     def do_signup(self, qcontext):
         values = {key: qcontext.get(key) for key in (
             'login', 'name', 'birthday', 'password')}
-            # user is internal user if share = FALSE
+        # user is internal user if share = FALSE
         user = request.env['res.users'].search([('login', '=', values.get('login'))], limit=1)
-        is_external = False
-        if user:
-            is_external = user.share
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", values.get('login')) and is_external:
-            qcontext['error_detail'] = 'Your email is invalid'
-            raise AssertionError
+        if not user:
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", values.get('login')):
+                qcontext['error_detail'] = 'Your email is invalid'
+                raise AssertionError
+
         if not values.values():
             qcontext['error_detail'] = 'The form was not properly filled in.'
             raise AssertionError
@@ -63,27 +63,3 @@ class PasswordSignup(AuthSignupHome):
 
         self._signup_with_values(qcontext.get('token'), values)
         request.env.cr.commit()
-
-    # def do_reset_password_direct(self, qcontext):
-    #     values = {key: qcontext.get(key) for key in (
-    #         'login', 'old_password', 'password')}
-    #
-    #     if not values.values():
-    #         qcontext['error_detail'] = 'The form was not properly filled in.'
-    #         raise SignupError
-    #
-    #     if not values.get('password') == qcontext.get('confirm_password'):
-    #         qcontext[
-    #             'error_detail'] = 'New passwords do not match; please retype them.'
-    #         raise SignupError
-    #
-    #     db = request.session.db
-    #     old_password = values.get('old_password')
-    #     new_password = values.get('new_password')
-    #     login = values.get('login')
-    #     uid = request.session.authenticate(db, login, password)
-    #     g = request.env['res.users'].change_password(old_password, new_password)
-    #     if not request.env['res.users'].change_password(old_password, new_password):
-    #         qcontext['error_detail'] = "Old password doesn't correct."
-    #         raise SignupError
-

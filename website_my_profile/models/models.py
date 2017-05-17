@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+import re
+from odoo import models, fields, api, exceptions, _
+
+
+class ResetDirectError(Exception):
+    pass
+
+
+class ChangeMailError(Exception):
+    pass
 
 
 class Partner(models.Model):
@@ -15,11 +24,15 @@ class Partner(models.Model):
         return ['Male', 'Female', 'Unknow']
 
 
-class Gender(models.Model):
-    _name = 'hr.employee.gender'
-
-    name = fields.Char('Gender of The Employee')
-    gender = fields.Char(string="Gender", default="Male")
+# class ResUser(models.Model):
+#     _inherit = 'res.users'
+#
+#     @api.constrains('login')
+#     def _check_login_valid_mail(self):
+#         for user in self:
+#             if not re.match(r"[^@]+@[^@]+\.[^@]+", user.login):
+#                 raise exceptions.ValidationError(
+#                     _("Invalid email address"))
 
 
 class IrMailServer(models.Model):

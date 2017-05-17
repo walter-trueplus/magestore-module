@@ -13,7 +13,7 @@
         
             + Delete Company Name and Zip / Postal Code properties
             + Add Gender, Active and Birthday properties
-        
+
         If you choose reset password from /web/login url, an email will be send to
         your email if your email address is valid, if not: the email will be send to
         mars@trueplus.vn (can change)
@@ -29,11 +29,11 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'VIP',
-    'version': '0.1',
+    'category': 'Tools',
+    'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_portal', 'auth_signup'],
+    'depends': ['base', 'website', 'website_portal', 'auth_signup', 'mail', 'fetchmail'],
 
     # always loaded
     'data': [

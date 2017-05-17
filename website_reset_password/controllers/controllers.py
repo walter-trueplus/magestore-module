@@ -10,8 +10,10 @@ from odoo.addons.web.controllers.main import Home
 from odoo.http import request
 import re
 
+
 def check_correct_format_email(email):
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
+
 
 class PasswordSignup(Home):
     @http.route('/web/reset_password_direct', type='http', auth='public', website=True)
@@ -36,7 +38,7 @@ class PasswordSignup(Home):
     def do_reset_password_direct(self, qcontext):
         values = {key: qcontext.get(key) for key in ('old_password', 'new_password', 'retype_password')}
         uid = request.session.uid
-        login = request.env['res.users'].search([('id', '=', uid)]).login
+        login = request.env['res.users'].sudo().search([('id', '=', uid)]).login
         qcontext['login'] = login
 
         if not login:
@@ -49,18 +51,24 @@ class PasswordSignup(Home):
 
         # if old password not correct, this will raise an Exception and close cr (cursor : cr.close())
         #  and you can't not raise next of code below this line
-        request.env['res.users'].change_password(values.get('old_password'), values.get('new_password'))
+        request.env['res.users'].sudo().change_password(values.get('old_password'), values.get('new_password'))
 
-    @http.route('/web/change_email')
+    @http.route('/web/change_email', type='http', auth='public', website=True)
     def change_email(self, *args, **kw):
         if not request.session.uid:
             return request.redirect('/')
         qcontext = request.params.copy()
+        uid = request.session.uid
+        current_login = request.env['res.users'].sudo().search([('id', '=', uid)]).login
+        if kw:
+            qcontext.update({'login': kw['login']})
         if 'error' not in qcontext and request.httprequest.method == 'POST':
             try:
                 self.do_change_email(qcontext)
-                qcontext['message'] = 'Changed mail successful!'
-                return request.redirect('/web')
+                user = request.env['res.users'].sudo().search([('login', '=', current_login)])
+                user.write({'login': qcontext.get('login')})
+                # qcontext['message'] = 'Changed mail successful!'
+                return request.redirect('/web/session/logout?redirect=/web/login', qcontext)
             except ChangeMailError:
                 qcontext['error'] = qcontext.get('error_detail')
             except Exception:
@@ -68,24 +76,20 @@ class PasswordSignup(Home):
         return request.render('website_reset_password.form_email', qcontext)
 
     def do_change_email(self, qcontext):
-        values = {key: qcontext.get(key) for key in ('email', 'password')}
         uid = request.session.uid
-        login = request.env['res.users'].search([('id', '=', uid)]).login
-        qcontext['login'] = login
+        current_login = request.env['res.users'].sudo().search([('id', '=', uid)]).login
 
-        if not login:
-            qcontext['error_detail'] = 'No login provided.'
+        if not qcontext.get('login') or not current_login:
+            qcontext['error_detail'] = 'No login provided.Please go to Sign in page'
             raise ChangeMailError
 
-        if check_correct_format_email(values.get('email')):
-            qcontext['error_detail'] = 'Invalid email.'
+        if request.env['res.users'].sudo().search([('login', '=', qcontext.get('login'))]) and qcontext.get(
+                'login') != current_login:
+            qcontext['error_detail'] = 'Another user is already registered using this login name.'
             raise ChangeMailError
 
-        if request.env['res.users'].search([('email', '=', values.get('email'))]):
-            qcontext['error_detail'] = 'Another user is already registered using this email address.'
-            raise ChangeMailError
-
-        request.env['res.users'].change_password(values.get('password'), values.get('password'))
+        # request.session.authenticate(request.db, qcontext.get('login'), qcontext.get('password'))
+        request.env['res.users'].change_password(qcontext.get('password'), qcontext.get('password'))
 
     @http.route()
     def web_login(self, redirect=None, **kw):

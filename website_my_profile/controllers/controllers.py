@@ -16,7 +16,7 @@ class MyProfile(website_account):
     @http.route()
     def details(self, redirect=None, **post):
         result = super(MyProfile, self).details(redirect, **post)
-        self.MANDATORY_BILLING_FIELDS.append('birthday')
+        self.MANDATORY_BILLING_FIELDS.extend(['birthday','login'])
         self.OPTIONAL_BILLING_FIELDS.extend(['active', 'gender'])
         # all value put in render function will becomes value of qcontext
         # see odoo.addons.website_portal.controllers.main in details function
@@ -25,6 +25,7 @@ class MyProfile(website_account):
         genders = request.env['res.partner'].get_value_gender()
         qcontext = result.qcontext
         qcontext['genders'] = genders
+        qcontext['login'] = request.env['res.users'].sudo().search([('id', '=', request.session.uid)]).login
         return result
 
 
@@ -43,7 +44,9 @@ class PasswordSignup(AuthSignupHome):
         values = {key: qcontext.get(key) for key in (
             'login', 'name', 'birthday', 'password')}
         # user is internal user if share = FALSE
-        user = request.env['res.users'].search([('login', '=', values.get('login'))], limit=1)
+        user = request.env['res.users'].sudo().search([('login', '=', values.get('login'))])
+        # if request has login value (user loged in or reset password with token)
+        # don't check login
         if not user:
             if not re.match(r"[^@]+@[^@]+\.[^@]+", values.get('login')):
                 qcontext['error_detail'] = 'Your email is invalid'

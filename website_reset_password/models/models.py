@@ -11,10 +11,10 @@ class ChangeMailError(Exception):
 
 class ResUser(models.Model):
     _inherit = 'res.users'
-
-    @api.constrains('login')
-    def _check_login_valid_mail(self):
-        for user in self:
-            if not re.match(r"[^@]+@[^@]+\.[^@]+", user.login):
-                raise exceptions.ValidationError(
-                    _("Invalid email address"))
+    #
+    # @api.constrains('login')
+    # def _check_login_valid_mail(self):
+    #     for user in self:
+    #         if not re.match(r"[^@]+@[^@]+\.[^@]+", user.login):
+    #             raise exceptions.ValidationError(
+    #                 _("Invalid email address"))

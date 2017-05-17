@@ -1,18 +1,13 @@
 <odoo>
     <data>
-        <template id="more_attribute_for_email" inherit_id="website_portal.details">
-            <xpath expr="//input[@type='email']" position="attributes">
-                <attribute name="readonly">readonly</attribute>
-            </xpath>
-        </template>
-
         <template id="button_reset_password_and_email" inherit_id="website_portal.details">
             <xpath expr="//div[@class='col-md-8']/div[@class='row']" position="before">
                 <div class="clearfix">
                     <a href="/web/reset_password_direct" class="btn btn-default btn-primary pull-right">Change Password
                     </a>
                     <div class="clearfix">
-                        <a href="/web/change_email" class="btn btn-default btn-primary pull-left">Change Email</a>
+                        <a href="/web/change_email" class="btn btn-default btn-primary pull-left">Change Login</a>
+                        <!--<a href="/web/session/logout?redirect=/" class="btn btn-default btn-primary pull-left">Change Login</a>-->
                     </div>
                 </div>
             </xpath>
@@ -65,9 +60,9 @@
         </template>
 
         <template id="website_reset_password.fields_email" name="Change email fields">
-            <div class="form-group field-email">
-                <label for="email" class="control-label">Your Email</label>
-                <input type="text" name="email" id="email" class="form-control"
+            <div class="form-group field-login">
+                <label for="email" class="control-label">Login Name</label>
+                <input type="text" name="login" id="login" class="form-control" t-att-value="login"
                        required="required"/>
             </div>
 

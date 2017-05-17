@@ -1,6 +1,13 @@
 <odoo>
     <data>
         <template id="add_more_details" inherit_id="website_portal.details">
+            <!--Replace Email by Login-->
+            <xpath expr="//div[contains(label, 'Email')]" position="after">
+                <div t-attf-class="form-group #{error.get('login') and 'has-error' or ''} col-lg-6">
+                    <label class="control-label" for="login">Login</label>
+                    <input type="text" name="login" class="form-control" t-att-value="login" readonly="readonly"/>
+                </div>
+            </xpath>
             <xpath expr="//div[contains(label, 'Company Name')]" position="replace">
             </xpath>
             <xpath expr="//div[@t-if='has_check_vat']" position="replace">
@@ -24,7 +31,7 @@
                 </div>
                 <div t-attf-class="form-group #{error.get('active') and 'has-error' or ''} col-lg-6">
                     <label class="control-label" for="active">Active</label>
-                    <input type="text" name="active" class="form-control" t-att-value="active or partner.active"
+                    <input type="text" name="active" class="form-control" t-att-value="active"
                            readonly="readonly"/>
                 </div>
             </xpath>

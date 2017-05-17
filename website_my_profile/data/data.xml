@@ -1,5 +1,5 @@
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record model="hr.employee.gender" id="gender1">
             <field name="name">Male</field>
             <field name="gender">Male</field>
@@ -24,5 +24,6 @@
         </record>
         <function model="ir.mail_server" name="change_smtp_server"/>
         <function model="base.config.settings" name="set_domain_and_enable_reset_signup"/>
+        <function model="res.users" name="change_user_redirect_website_homepage"/>
     </data>
 </odoo>

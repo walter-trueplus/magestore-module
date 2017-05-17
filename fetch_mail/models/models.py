@@ -23,13 +23,6 @@ class FetchMail(models.Model):
         if self.message_ids:
             self.body = self.message_ids[0].body
 
-
-class MailCron(models.Model):
-    _name = "cron.fetch"
-
-    name = fields.Char(string="Fetch Mail")
-
-    @api.multi
     def run_fetch_mail(self):
         self.env['ir.cron'].search(
             [('name', '=', 'Fetchmail Service')], limit=1).method_direct_trigger()
@@ -72,7 +65,6 @@ class BaseSettings(models.TransientModel):
     def set_domain_trueplus(self):
         IrConfigParam = self.env['ir.config_parameter']
         IrConfigParam.set_param('mail.catchall.domain', 'trueplus.vn')
-
 
 
 class MailAlias(models.Model):

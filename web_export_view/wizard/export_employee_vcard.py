@@ -7,9 +7,10 @@ import csv
 from odoo import api, fields, models
 
 
-class DownloadContact(models.Model):
-    _inherit = 'res.partner'
+class ExportEmployee(models.Model):
+    _inherit = 'hr.employee'
 
+    file_name = fields.Char()
     data = fields.Binary(string="File", readonly=True)
 
     @api.multi
@@ -21,23 +22,24 @@ class DownloadContact(models.Model):
                 writer.writerow(("VERSION", "3.0"))
                 writer.writerow(("N", self.name.encode('utf8') if self.name else ''))
                 writer.writerow(("FN", self.name.encode('utf8') if self.name else ''))
-                writer.writerow(("TEL;TYPE=CELL", self.phone if self.phone else ''))
-                writer.writerow(("TEL;TYPE=WORK", self.mobile.encode('utf8') if self.mobile else ''))
-                writer.writerow(("EMAIL;TYPE=WORK", self.email if self.email else ''))
+                writer.writerow(("TEL;TYPE=CELL", self.mobile_phone if self.mobile_phone else ''))
+                writer.writerow(("TEL;TYPE=WORK", self.work_phone if self.work_phone else ''))
+                writer.writerow(("EMAIL;TYPE=WORK", self.work_email if self.work_email else ''))
                 writer.writerow(
                     ("ORG;CHARSET=UTF-8", self.parent_id.name.encode('utf8') if self.parent_id.name else ''))
-                writer.writerow(("TITLE", self.title.name if self.title.name else ''))
+                writer.writerow(("TITLE", self.job_id.name.encode('utf8') if self.job_id.name else ''))
                 writer.writerow(("END", "VCARD"))
 
                 out = base64.encodestring(buf.getvalue())
             self.write({
                 'data': out,
-                'nameaa': 'contact_info.vcf'
+                'file_name': 'contact_info.vcf'
             })
-        compose_form = self.env.ref('export_contact_vcard.wizard_export_contact')
+
+        compose_form = self.env.ref('web_export_view.wizard_employee_vcard')
         return {
             'type': 'ir.actions.act_window',
-            'res_model': 'res.partner',
+            'res_model': 'hr.employee',
             'view_mode': 'form',
             'view_type': 'form',
             'res_id': self.id,

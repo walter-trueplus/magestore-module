@@ -8,7 +8,7 @@
                 <form string="Export Contact">
                     <group>
                         <p>Here is the exported file:
-                            <field name="data" readonly="1" filename="name"/>
+                            <field name="data" readonly="1" filename="file_name"/>
                         </p>
                     </group>
                     <footer>
@@ -36,5 +36,6 @@
                     target="new"
                     id="action_export_vcard"
         />
+
     </data>
 </odoo>

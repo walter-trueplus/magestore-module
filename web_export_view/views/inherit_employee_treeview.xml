@@ -4,7 +4,7 @@
 
     <data>
 
-        <record model="ir.ui.view" id="user_point_view">
+        <record model="ir.ui.view" id="inherit_employee_view">
 
             <field name="name">inherit view</field>
 

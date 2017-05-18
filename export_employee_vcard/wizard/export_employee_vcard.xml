@@ -22,12 +22,13 @@
             <field name="name">Export Employee</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr.employee</field>
+            <field name="src_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
 
-        <act_window name="Export Contact"
+        <act_window name="Export Employee"
                     res_model="hr.employee"
                     src_model="hr.employee"
                     view_mode="form"

@@ -11,10 +11,9 @@
     'description': """This module allow user to export contact to vCard file and download directly""",
     'depends': ['base'],
     'data': [
-        'wizard/export_contact_vcard.xml',
+        'wizard/export_employee_vcard.xml',
         'wizard/button_export_in_detail_view.xml',
     ],
-    'qweb': ['static/src/xml/qweb.xml'],
     'sequence': 2,
     'application': True,
     'installable': True,

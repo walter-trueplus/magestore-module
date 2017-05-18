@@ -10,6 +10,7 @@ from odoo import api, fields, models
 class DownloadContact(models.Model):
     _inherit = 'res.partner'
 
+    file_name = fields.Char()
     data = fields.Binary(string="File", readonly=True)
 
     @api.multi
@@ -32,9 +33,9 @@ class DownloadContact(models.Model):
                 out = base64.encodestring(buf.getvalue())
             self.write({
                 'data': out,
-                'nameaa': 'contact_info.vcf'
+                'file_name': 'contact_info.vcf'
             })
-        compose_form = self.env.ref('export_contact_vcard.wizard_export_contact')
+        compose_form = self.env.ref('web_export_view.wizard_export_contact')
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'res.partner',

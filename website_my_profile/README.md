@@ -1,5 +1,5 @@
-#Editting My Account Page
-
+Editting My Account Page
+---
 This module will adds some property for /my/account page and /web/signup page:
 + Add Change Password button to /my/account page: allow user change password directly,
 don't redirect to /web/reset_password

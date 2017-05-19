@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_export_model_export_model,export_model.export_model,model_export_model_export_model,,1,0,0,0

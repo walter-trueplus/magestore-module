@@ -19,13 +19,13 @@ class ExportModelData(models.Model):
         print "----------"
         f = open("/Users/pwnux90/Desktop/output.txt", "a+")
         for item in self.model_fields:
-            f.write(str(item) + " ")
+            f.write(str(item.name) + " ")
         f.write("\n")
+        print str(self.ir_model.model)
         data = self.env[str(self.ir_model.model)].search([])
-        if data:
-            for item_data in data:
-                for item in self.model_fields:
-                    f.write(str(item_data.item) + " ")
-                print "\n"
-            f.close()
-
+        for data_ in data:
+            for field_ in self.model_fields:
+                print field_.name
+                print data_.mapped(field_.name)
+                print "---"
+            print "*******************"

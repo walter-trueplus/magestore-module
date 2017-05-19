@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "convert_price",
+    'name': "Convert Price Number to Character",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -16,7 +16,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Tools',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -33,9 +33,6 @@
         'views/sale/sale_config_setting_view.xml',
         'views/sale/sale_oder_view.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    
     'application':True,
 }

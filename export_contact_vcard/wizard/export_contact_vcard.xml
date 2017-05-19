@@ -3,12 +3,10 @@
     <data>
         <record id="wizard_export_contact" model="ir.ui.view">
             <field name="name">Export Contact</field>
-            <field name="model">export.contact.wizard</field>
+            <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <form string="Export Contact">
                     <group>
-                        <!--<function model="sale.order" name="action_confirm" eval="[[ref('sale_order_2')]]"/>-->
-                        <h2>Export Complete</h2>
                         <p>Here is the exported file:
                             <field name="data" readonly="1" filename="name"/>
                         </p>
@@ -23,7 +21,7 @@
         <record id="action_wizard_export_contact" model="ir.actions.act_window">
             <field name="name">Export Contact</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">export.contact.wizard</field>
+            <field name="res_model">res.partner</field>
             <field name="src_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
@@ -31,13 +29,12 @@
         </record>
 
         <act_window name="Export Contact"
-                    res_model="export.contact.wizard"
+                    res_model="res.partner"
                     src_model="res.partner"
                     view_mode="form"
                     multi="True"
                     target="new"
                     id="action_export_vcard"
         />
-
     </data>
 </odoo>

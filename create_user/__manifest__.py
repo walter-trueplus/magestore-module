@@ -3,29 +3,20 @@
     'name': "Create User",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Create new employee associated with user when created an user.""",
 
     'description': """
-        Long description of module's purpose
-    """,
+    This module will provides some new actions when you create an User account:
+    
+    + create new employee with name is same name of user, work_email is same login of user
+    + when you deleted an user, associate employee will be deleted
+    + when you edit the user, if login changed --> work_email of employee will be changed""",
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "magestore.com",
+    'website': "magestore.com",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
-    # for the full list
-    'category': 'VIP',
-    'version': '1',
+    'category': 'Tools',
+    'version': '1.0',
 
-    # any module necessary for this one to work correctly
-    'depends': ['base'],
-
-    # always loaded
-    'data': [
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-    ],
+    'depends': ['base', 'hr'],
 }

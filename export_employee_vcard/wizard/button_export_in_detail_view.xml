@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_employees" model="ir.ui.view">
-        <field name="name">hr.employee.form</field>
+    <record id="view_employees1" model="ir.ui.view">
+        <field name="name">hr.employee.form1</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
@@ -11,8 +11,8 @@
         </field>
     </record>
     #acbsac
-    <record id="view_employees" model="ir.ui.view">
-        <field name="name">hr.employee.kanban</field>
+    <record id="view_employeess" model="ir.ui.view">
+        <field name="name">hr.employee.kanban2</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
         <field name="arch" type="xml">

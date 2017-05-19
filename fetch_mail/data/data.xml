@@ -1,21 +1,22 @@
 <odoo>
-    <data>
-        <record model="ir.mail_server" id="outgoing_gmail_v1">
-            <field name="name">Outgoing Gmail Server</field>
-            <field name="smtp_host">smtp.gmail.com</field>
-            <field name="smtp_port">465</field>
-            <field name="smtp_encryption">ssl</field>
-            <field name="smtp_user">mars@trueplus.vn</field>
-            <field name="smtp_pass">marsorxmars</field>
+    <!--noupdate="1" will create this record only once time
+    if one of it existent, xml will not execute-->
+    <!--if not, it will create new record every time you update or reinstall the module-->
+    <data noupdate="1">
+        <!--because fetchmail.server belong to fetchmail module
+        >>> you need to add fetchmail module to depends of this module-->
+        <record id="incoming_gmail_pop_server" model="fetchmail.server">
+            <field name="name">Incoming Gmail Server</field>
+            <field name="server">pop.gmail.com</field>
+            <field name="type">pop</field>
+            <field name="port">995</field>
+            <field name="is_ssl">True</field>
+            <field name="user">mars@trueplus.vn</field>
+            <field name="password">marsorxmars</field>
+            <field name="state">done</field>
         </record>
-        <record model="fetchmail.server" id="incoming_gmail_abc_ffww">
-        	<field name="name">Incoming Gmail Server</field>
-        	<field name="is_ssl">TRUE</field>
-        	<field name="port">995</field>
-        	<field name="type">pop</field>
-        	<field name="server">pop.gmail.com</field>
-        	<field name="user">mars@trueplus.vn</field>
-        	<field name="password">marsorxmars</field>
-        </record>
+        <function model="ir.mail_server" name="change_smtp_local_server"/>
+        <function model="base.config.settings" name="set_domain_trueplus"/>
+        <function model="mail.alias" name="create_mail_alias"/>
     </data>
 </odoo>

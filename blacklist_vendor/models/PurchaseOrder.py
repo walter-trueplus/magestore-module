@@ -46,6 +46,7 @@ class PurchaseOrder(models.Model):
             raise exceptions.UserError(_("You can not create purchase order in case the vendor in black list"))
     @api.model
     def _get_warning_option(self):
+        #get warning option from data base
         setting = self.env['purchase.config.settings'].search([])
         if len(setting)==0:
             return 'warning'

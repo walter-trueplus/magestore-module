@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="Fetch">
+        <div>
+            <button type="button" class="p_test myButton">Fetch Mail</button>
+        </div>
+    </t>
+    <t t-extend="ListView.buttons">
+        <t t-jquery="[class~=o_list_button_discard]" t-operation="after">
+            <!--only mail.fetched model has Fetch button-->
+            <t t-if="widget.model == 'mail.fetched'">
+                <button type="button" class="btn btn-primary btn-sm o_list_button_fetch_mail">Fetch Mail</button>
+            </t>
+        </t>
+    </t>
+</templates>

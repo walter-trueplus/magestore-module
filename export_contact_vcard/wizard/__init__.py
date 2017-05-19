@@ -1,1 +1,0 @@
-import export_contact_vcard

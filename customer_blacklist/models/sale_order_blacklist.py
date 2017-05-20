@@ -1,5 +1,4 @@
 # -*- coding : utf-8 -*-
-import pymsgbox
 
 from odoo import models, fields, api, exceptions
 from odoo.osv import osv

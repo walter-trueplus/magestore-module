@@ -30,14 +30,14 @@ class VcardExport(ExportFormat, http.Controller):
             for lst_data in lst_data2:
                 writer.writerow(("BEGIN", "VCARD"))
                 writer.writerow(("VERSION", "3.0"))
-                writer.writerow(("N", lst_data[0] if lst_data else ''))
-                writer.writerow(("FN", lst_data[0] if lst_data else ''))
+                writer.writerow(("N", lst_data[0].encode('utf-8') if lst_data else ''))
+                writer.writerow(("FN", lst_data[0].encode('utf-8') if lst_data else ''))
                 writer.writerow(("TEL;TYPE=CELL", lst_data[1] if lst_data else ''))
                 writer.writerow(("TEL;TYPE=WORK", lst_data[2] if lst_data else ''))
                 writer.writerow(("EMAIL;TYPE=WORK", lst_data[3] if lst_data else ''))
                 writer.writerow(
-                    ("ORG;CHARSET=UTF-8", lst_data[5] if lst_data else ''))
-                writer.writerow(("TITLE", lst_data[6] if lst_data else ''))
+                    ("ORG;CHARSET=UTF-8", lst_data[5].encode('utf-8') if lst_data else ''))
+                writer.writerow(("TITLE", lst_data[6].encode('utf-8') if lst_data else ''))
                 writer.writerow(("END", "VCARD"))
         fp.seek(0)
         data = fp.read()
@@ -53,14 +53,14 @@ class VcardExport(ExportFormat, http.Controller):
             for lst_data in lst_data2:
                 writer.writerow(("BEGIN", "VCARD"))
                 writer.writerow(("VERSION", "3.0"))
-                writer.writerow(("N", lst_data[0] if lst_data else ''))
-                writer.writerow(("FN", lst_data[0] if lst_data else ''))
+                writer.writerow(("N", lst_data[0].encode('utf-8') if lst_data else ''))
+                writer.writerow(("FN", lst_data[0].encode('utf-8') if lst_data else ''))
                 writer.writerow(("TEL;TYPE=CELL", lst_data[1] if lst_data else ''))
                 writer.writerow(("TEL;TYPE=WORK", lst_data[2] if lst_data else ''))
                 writer.writerow(("EMAIL;TYPE=WORK", lst_data[3] if lst_data else ''))
                 writer.writerow(
                     ("ORG;CHARSET=UTF-8", lst_data[4] if lst_data else ''))
-                writer.writerow(("TITLE", lst_data[5] if lst_data else ''))
+                writer.writerow(("TITLE", lst_data[5].encode('utf-8') if lst_data else ''))
                 writer.writerow(("END", "VCARD"))
 
         fp.seek(0)

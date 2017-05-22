@@ -13,26 +13,31 @@ class ExportModel(models.TransientModel):
     name = fields.Char(string="File Name", readonly=True)
     data = fields.Binary(string="File", readonly=True)
     ir_model = fields.Many2one('ir.model')
-    model_fields = fields.Many2many('ir.model.fields', compute='_check_model')
-    model_fields = fields.Many2many('ir.model.fields')
+    model_fields = fields.Many2many('ir.model.fields',domain="[('model_id', '=',ir_model)]")
     state = fields.Selection([('choose', 'choose'), ('get', 'get')], default='choose')
+    test_1 = fields.Reference([('ir.model','Model'), ('ir.model.fields', 'Fields')])
+
+    # # @api.depends('ir_model')
+    # def _check_model(self):
+    #     if not self.ir_model:
+    #         self.write({
+    #             'model_fields': []
+    #         })
 
     @api.multi
     @api.onchange('ir_model')
     def _compute_model(self):
-        self.model_fields = self.env['ir.model.fields'].search([('model', '=', self.ir_model.model)])
-
-    @api.multi
-    def _check_model(self):
-        if self.ir_model:
-            self.model_fields = None
-
+        lst_field = self.env['ir.model.fields'].search([('model', '=', self.ir_model.model)])
+        self.write({
+            'model_fields': lst_field
+        })
 
     @api.multi
     def do_export2(self):
         if self.ir_model:
             limit = ['many2one', 'many2many', 'one2many']
             lst_name = []
+            print self
             with contextlib.closing(cStringIO.StringIO()) as buf:
                 writer = csv.writer(buf, delimiter=";", encoding="utf-8")
                 for f in self.model_fields:
@@ -64,3 +69,4 @@ class ExportModel(models.TransientModel):
             'views': [(False, 'form')],
             'target': 'new',
         }
+

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-# edited by mars
-# edited by walter
+# finish by kriz
 {
     'name': "Export Model",
     'summary': """Export Model""",

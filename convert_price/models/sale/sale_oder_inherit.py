@@ -20,12 +20,12 @@ class SaleOrder(models.Model):
             print record.currency_id.id
         if option == 'eng':
             for sale_order in self:
-                sale_order.amount_total_text = 'In text: ' + num2words(sale_order.amount_total) + \
+                sale_order.amount_total_text = 'IN TEXT: ' + num2words(sale_order.amount_total).upper() + \
                                                self._get_currency(sale_order.currency_id.id)
 
         elif option == 'viet':
             for sale_order in self:
-                sale_order.amount_total_text = 'Bằng chữ: ' + \
+                sale_order.amount_total_text = 'BẰNG CHỮ: ' + \
                                                self.env['convert.to.vn'].number_to_text(sale_order.amount_total) + \
                                                self._get_currency(sale_order.currency_id.id)
 

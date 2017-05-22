@@ -21,7 +21,7 @@
         'wizard/button_export_in_employee_detail_view.xml',
     ],
     'qweb': [
-        "static/src/xml/Export_Vcard_template.xml",
+        "static/src/xml/export_vcard_template.xml",
     ],
     'application':True,
 }

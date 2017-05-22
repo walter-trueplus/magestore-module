@@ -1,7 +1,12 @@
 {
-    'name': 'black list vendor',
+    'name': 'Black list vendor',
     'depends': ['base','purchase','contacts'],
-    'desciption': 'Notify while create purchase order in case the vendor in black list',
+    'summary': """
+        Notify while create purchase order in case the vendor in black list""",
+
+    'description': """
+        Notify while create purchase order in case the vendor in black list
+    """,
     'data': [
         'view/vendor_view.xml',
         'view/setting.xml'

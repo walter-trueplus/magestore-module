@@ -10,9 +10,13 @@
                     <field name="name" invisible="1"/>
                     <group states="choose" string="Export Settings">
                         <field name="ir_model"/>
+<<<<<<< HEAD
+                            <field name="model_fields" widget="many2many_tags"/>
+=======
                         <p>
                             <field name="model_fields" widget="many2many_tags"/>
                         </p>
+>>>>>>> f5b218b0367ae359d10b53d1077a9ca59e4a1064
                     </group>
                     <div states="get">
                         <h2>Export Complete</h2>

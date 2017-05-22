@@ -3,7 +3,7 @@
 {
     'name': 'Download contact',
     'category': 'Web',
-    'author': 'Kriz - Odoo dev, \
+    'author': 'Kriz - Odoo dev , \
             Magestore VN',
     'website': 'http://www.magestore.com',
     'summary': 'Export Contact',

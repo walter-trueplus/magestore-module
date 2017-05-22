@@ -16,4 +16,5 @@
     'data': [
         'views/account_invoice_view.xml',
     ],
+    'application': True ,
 }

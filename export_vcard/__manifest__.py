@@ -3,7 +3,7 @@
 {
     'name': 'Download contact',
     'category': 'Web',
-    'author': 'Kriz - Odoo dev, \
+    'author': 'Kriz - Odoo dev , \
             Magestore VN',
     'website': 'http://www.magestore.com',
     'summary': 'Export Contact',
@@ -12,7 +12,7 @@
         'web','hr','base',
     ],
     "data": [
-        'views/web_export_view_view.xml',
+        'views/export_vcard_view.xml',
         'views/inherit_employee_treeview.xml',
         'views/inherit_contact_treeview.xml',
         'wizard/export_contact_vcard.xml',
@@ -21,7 +21,7 @@
         'wizard/button_export_in_employee_detail_view.xml',
     ],
     'qweb': [
-        "static/src/xml/web_export_view_template.xml",
+        "static/src/xml/export_vcard_template.xml",
     ],
     'application':True,
 }

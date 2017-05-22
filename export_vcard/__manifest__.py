@@ -13,15 +13,15 @@
     ],
     "data": [
         'views/export_vcard_view.xml',
-        'views/inherit_employee_treeview.xml',
         'views/inherit_contact_treeview.xml',
+        'views/inherit_employee_treeview.xml',
         'wizard/export_contact_vcard.xml',
         'wizard/export_employee_vcard.xml',
         'wizard/button_export_in_contact_detail_view.xml',
         'wizard/button_export_in_employee_detail_view.xml',
     ],
     'qweb': [
-        "static/src/xml/export_vcard_template.xml",
+        "static/src/xml/export_vcard_view_template.xml",
     ],
     'application':True,
 }

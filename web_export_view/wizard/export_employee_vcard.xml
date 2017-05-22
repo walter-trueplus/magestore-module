@@ -29,13 +29,13 @@
             <field name="target">new</field>
         </record>
 
-        <act_window name="Export Employee"
-                    res_model="hr.employee"
-                    src_model="hr.employee"
-                    view_mode="form"
-                    multi="True"
-                    target="new"
-                    id="action_export_vcard"
-        />
+        <!--<act_window name="Export Employee"-->
+                    <!--res_model="hr.employee"-->
+                    <!--src_model="hr.employee"-->
+                    <!--view_mode="form"-->
+                    <!--multi="True"-->
+                    <!--target="new"-->
+                    <!--id="action_export_vcard"-->
+        <!--/>-->
     </data>
 </odoo>

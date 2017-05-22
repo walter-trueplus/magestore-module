@@ -7,7 +7,7 @@
         subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-        Long description of module's purpose
+        Convert price number to text and display in Sales Order, Purchase Order, Invoice. Support Vietnamese & English
     """,
 
     'author': "My Company",

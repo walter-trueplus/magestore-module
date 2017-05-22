@@ -7,6 +7,7 @@ from odoo.addons.website_portal.controllers.main import website_account
 from odoo.addons.auth_signup.controllers.main import AuthSignupHome
 from odoo.addons.web.controllers.main import Home
 from odoo.addons.website_my_profile.models.models import ResetDirectError, ChangeMailError
+from odoo.addons.auth_signup.models.res_users import SignupError
 
 
 # from odoo.addons.auth_signup.models.res_users import SignupError
@@ -14,6 +15,45 @@ from odoo.addons.website_my_profile.models.models import ResetDirectError, Chang
 
 def check_correct_format_email(email):
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
+
+def password_check(password):
+    """
+    Verify the strength of 'password'
+    Returns a dict indicating the wrong criteria
+    A password is considered strong if:
+        8 characters length or more
+        1 digit or more
+        1 symbol or more
+        1 uppercase letter or more
+        1 lowercase letter or more
+    """
+
+    # calculating the length
+    length_error = len(password) < 8
+
+    # searching for digits
+    digit_error = re.search(r"\d", password) is None
+
+    # searching for uppercase
+    uppercase_error = re.search(r"[A-Z]", password) is None
+
+    # searching for lowercase
+    lowercase_error = re.search(r"[a-z]", password) is None
+
+    # searching for symbols
+    symbol_error = re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~" + r'"]', password) is None
+
+    # overall result
+    password_ok = not (length_error or digit_error or uppercase_error or lowercase_error or symbol_error)
+
+    return {
+        'password_ok': password_ok,
+        'length_error': length_error,
+        'digit_error': digit_error,
+        'uppercase_error': uppercase_error,
+        'lowercase_error': lowercase_error,
+        'symbol_error': symbol_error,
+    }
 
 
 # add more fields to my/account page
@@ -51,15 +91,20 @@ class UserAccount(AuthSignupHome):
         if not user:
             if not re.match(r"[^@]+@[^@]+\.[^@]+", values.get('login')):
                 qcontext['error_detail'] = 'Your email is invalid'
-                raise AssertionError
+                raise SignupError
 
         if not values.values():
             qcontext['error_detail'] = 'The form was not properly filled in.'
-            raise AssertionError
+            raise SignupError
+
+        if not password_check(qcontext.get('password')).get('password_ok'):
+            qcontext['error_detail'] = 'Password needs : 8 characters length or more, at least 1 digit,\n' \
+                                       '1 symbol, 1 uppercase, 1 lowercase'
+            raise SignupError
 
         if not values.get('password') == qcontext.get('confirm_password'):
             qcontext['error_detail'] = 'Passwords do not match; please retype them.'
-            raise AssertionError
+            raise SignupError
 
         supported_langs = [lang['code'] for lang in request.env[
             'res.lang'].sudo().search_read([], ['code'])]
@@ -106,6 +151,11 @@ class PasswordEmail(Home):
 
         if not login:
             qcontext['error_detail'] = 'No login provided.'
+            raise ResetDirectError
+
+        if not password_check(qcontext.get('password')).get('password_ok'):
+            qcontext['error_detail'] = 'Password needs : 8 characters length or more, at least 1 digit,\n' \
+                                       '1 symbol, 1 uppercase, 1 lowercase'
             raise ResetDirectError
 
         if values.get('new_password') != values.get('retype_password'):

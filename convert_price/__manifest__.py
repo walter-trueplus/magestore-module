@@ -3,11 +3,10 @@
     'name': "Convert Price Number to Character",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Convert price number to text and display in Sales Order, Purchase Order, Invoice. Support Vietnamese & English""",
 
     'description': """
-        Long description of module's purpose
+        Convert price number to text and display in Sales Order, Purchase Order, Invoice. Support Vietnamese & English
     """,
 
     'author': "My Company",

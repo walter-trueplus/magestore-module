@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "customer_blacklist",
+    'name': "BlackList customer",
 
     'summary': """
         Setting allow/reject/warring user create sale order while customer in blacklist """,
@@ -15,7 +15,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Tools',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -33,4 +33,5 @@
     'demo': [
         'demo/demo.xml',
     ],
+    'application': True,
 }

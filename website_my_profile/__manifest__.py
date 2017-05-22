@@ -31,7 +31,13 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'website', 'website_portal', 'auth_signup', 'mail', 'fetchmail'],
+    'depends': ['base',
+                'website',
+                'website_portal',
+                'auth_signup',
+                'mail',
+                'fetchmail',
+                'hr'],
 
     # always loaded
     'data': [

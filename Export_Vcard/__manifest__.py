@@ -23,5 +23,10 @@
     'qweb': [
         "static/src/xml/web_export_view_template.xml",
     ],
+<<<<<<< HEAD:Export_Vcard/__manifest__.py
     'application':True,
+=======
+    'installable': True,
+    'auto_install': False,
+>>>>>>> f5b218b0367ae359d10b53d1077a9ca59e4a1064:web_export_view/__manifest__.py
 }

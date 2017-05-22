@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_source_document_source_document,source_document.source_document,model_source_document_source_document,,1,0,0,0

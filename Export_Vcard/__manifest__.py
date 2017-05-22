@@ -24,6 +24,4 @@
         "static/src/xml/web_export_view_template.xml",
     ],
     'application':True,
-    'installable': True,
-    'auto_install': False,
 }

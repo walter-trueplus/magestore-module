@@ -77,7 +77,7 @@ class Num2Word_VN(models.Model):
                 for digit in end_word:
                     extra+=self._to_19[int(digit)]+' '
             final_result=final_result+' phẩy ' + extra
-        return final_result
+        return final_result.upper()
 
     @api.model
     def to_cardinal(self, number):

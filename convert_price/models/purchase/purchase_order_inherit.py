@@ -1,9 +1,5 @@
-# -*- coding: utf-8-*-
+# -*- coding: utf-8 -*-
 
-import sys
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 from odoo import api
 from odoo import fields
 from odoo import models
@@ -16,29 +12,22 @@ class PurchaseOrder(models.Model):
     amount_total_text = fields.Text(string='Total (In text)', store=False, readonly=True,
                                     compute='_compute_amount_total_text')
 
-    @api.depends('amount_total')
+    @api.depends('amount_total', 'currency_id')
     def _compute_amount_total_text(self):
-        x=self.env.user.lang
-        print x
         if self.env.user.lang == 'vi_VN':
-            print 'ok vao log'
             for sale_order in self:
-                sale_order.amount_total_text ='BẰNG CHỮ: '+ self.env['convert.to.vn'].number_to_text(sale_order.amount_total)+self._get_currency(sale_order.currency_id.id)
+                sale_order.amount_total_text = u'BẰNG CHỮ: ' + self.env['convert.to.vn'].number_to_text(
+                    sale_order.amount_total) + self._get_currency(sale_order.currency_id.id)
         else:
             for sale_order in self:
-                sale_order.amount_total_text ='IN TEXT: '+ num2words(sale_order.amount_total).upper()+self._get_currency(sale_order.currency_id.id)
-
-
-    # @api.model
-    # def _get_lang_config(self):
-    #     print 'lang code:', self.env.user.lang
-    #     options = self.env['purchase.config.settings'].search([])
-    #     if len(options) == 0:
-    #         return 'eng'  # default
-    #     else:
-    #         return options[-1].language_option
+                sale_order.amount_total_text = u'IN TEXT: ' + num2words(
+                    sale_order.amount_total).upper() + self._get_currency(sale_order.currency_id.id)
 
     @api.model
     def _get_currency(self, currency_id):
-        print 'id :',currency_id
-        return " " + self.env['res.currency'].search([('id', '=', currency_id)]).name
+        s = self.env['res.currency'].search([('id', '=', currency_id)]).name
+        if isinstance(s, basestring):
+            name = u" " + s
+            return name
+        else:
+            return u' '

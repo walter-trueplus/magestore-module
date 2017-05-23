@@ -26,10 +26,7 @@
         # 'security/ir.model.access.csv',
         'views/account/invoice_supplier_form_inherit.xml',
         'views/account/account_invoice_view.xml',
-        'views/account/account_config_setting_view.xml',
         'views/purchase/purchase_oder_view.xml',
-        'views/purchase/purchase_config_setting_view.xml',
-        'views/sale/sale_config_setting_view.xml',
         'views/sale/sale_oder_view.xml',
     ],
     

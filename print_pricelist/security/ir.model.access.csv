@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_print_pricelist_print_pricelist,print_pricelist.print_pricelist,model_print_pricelist_print_pricelist,,1,0,0,0

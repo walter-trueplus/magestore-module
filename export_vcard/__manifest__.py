@@ -3,8 +3,7 @@
 {
     'name': 'Download contact',
     'category': 'Web',
-    'author': 'Kriz - Odoo dev , \
-            Magestore VN',
+    'author': 'Magestore.com',
     'website': 'http://www.magestore.com',
     'summary': 'Export Contact',
     'description': """This module allow user to export contact & employee to vCard file and download directly""",

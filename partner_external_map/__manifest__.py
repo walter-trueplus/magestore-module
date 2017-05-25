@@ -4,7 +4,6 @@
     'name': 'Partner External Maps',
     'version': '10.0.1.0.0',
     'category': 'Extra Tools',
-    'license': 'AGPL-3',
     'summary': 'Add Map and Map Routing buttons on partner form to '
                'open GMaps, OSM, Bing and others',
     'author': '',

@@ -1,5 +1,28 @@
 <odoo>
     <data>
-
+        <record id="email_field_view_users_form" model="ir.ui.view">
+            <field name="name">Check mail view users form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='login']" position="attributes">
+                    <attribute name="placeholder">e.g. mars@prf.org</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="add_validate_mail_setting" model="ir.ui.view">
+        	<field name="name">add.validate.mail.setting</field>
+        	<field name="model">base.config.settings</field>
+        	<field name="inherit_id" ref="auth_signup.view_general_configuration"/>
+        	<field name="arch" type="xml">
+        		<xpath expr="//field[@name='auth_signup_uninvited']/.." postion="after">
+        			<div>
+        				<field name="validate_email_signup" class="oe_inline"/>
+        				<label for="validate_email_signup"/>
+        			</div>
+        			
+        		</xpath>
+        	</field>
+        </record>
     </data>
 </odoo>

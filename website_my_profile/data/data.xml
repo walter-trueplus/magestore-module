@@ -11,7 +11,8 @@
             <field name="state">done</field>
         </record>
         <function model="ir.mail_server" name="change_smtp_server"/>
-        <function model="base.config.settings" name="set_domain_and_enable_reset_signup"/>
+        <function model="my.config" name="set_domain_and_enable_reset_signup"/>
+        <!--<function model="base.config.settings" name="set_domain_and_enable_reset_signup"/>-->
         <function model="res.users" name="change_user_redirect_website_homepage"/>
     </data>
 </odoo>

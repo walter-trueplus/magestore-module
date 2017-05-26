@@ -36,8 +36,5 @@ odoo.define('pos_product_available', function (require) {
             alert(message);
         }, 1000);
 }
-
-
-
     });
 });

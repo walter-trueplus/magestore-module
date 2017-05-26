@@ -24,13 +24,7 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
         'views/asset_inherit.xml',
-        # 'static/src/xml/pos.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
     ],
     'application': True,
     'qweb': ['static/src/xml/pos.xml']

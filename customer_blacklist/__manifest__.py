@@ -18,13 +18,8 @@
     'depends': ['base','sale'],
 
     'data': [
-        'views/views.xml',
-        'views/templates.xml',
         'views/res_partner_view.xml',
         'views/account_config_setting.xml',
-    ],
-    'demo': [
-        'demo/demo.xml',
     ],
     'application': True,
 }

@@ -1,4 +1,4 @@
-# Odoo module - Fetch Mails
+# Odoo module - Create employee
 
 This module will provides some new actions when
 you create an User account:

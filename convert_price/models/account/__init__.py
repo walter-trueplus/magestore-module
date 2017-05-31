@@ -1,2 +1,2 @@
-from . import account_config_setting
+# -*- coding: utf-8 -*-
 from . import account_invoice_inherit

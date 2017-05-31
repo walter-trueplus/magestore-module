@@ -8,12 +8,12 @@
     'description': """
     This module will provides some new actions when you create an User account:
     
-    + create new employee with name is same name of user, work_email is same login of user
-    + when you deleted an user, associate employee will be deleted
-    + when you edit the user, if login changed --> work_email of employee will be changed""",
+    + Create new employee with name is same name of user, work_email is same login of user
+    + When you deleted an user, associate employee will be deleted
+    + When you edit the user, if login changed --> work_email of employee will be changed""",
 
-    'author': "Magestore.com",
-    'website': "Magestore.com",
+    'author': "Magestore",
+    'website': "www.magestore.com",
 
     'category': 'Tools',
     'version': '1.0',

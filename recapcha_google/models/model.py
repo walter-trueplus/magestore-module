@@ -7,8 +7,8 @@ import json
 class website(models.Model):
     _inherit = 'website'
 
-    recaptcha_site_key = fields.Char(string='reCAPTCHA Site Key', default="6Lf77yIUAAAAAF9BR9bx-2C5QOq_WxBD5bEjq2Hm")
-    recaptcha_private_key = fields.Char(string='reCAPTCHA Private Key', default="6Lf77yIUAAAAAD_KQHeTASJk5L6i056HcN6aYBkw")
+    recaptcha_site_key = fields.Char(string='reCAPTCHA Site Key')
+    recaptcha_private_key = fields.Char(string='reCAPTCHA Private Key')
 
     def is_captcha_valid(self,response):
         for website in self:

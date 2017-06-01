@@ -4,12 +4,13 @@ import csv
 import json
 from StringIO import StringIO
 
+import datetime
+import pytz
 import odoo.http as http
 from odoo.addons.web.controllers.main import serialize_exception, ExportFormat
 
 
-class VcardExport(ExportFormat, http.Controller):
-    @http.route('/web/export/csv', type='http', auth="user")
+class CalendarExport(ExportFormat, http.Controller):
     @serialize_exception
     def index(self, data, token):
         return self.base(data, token)
@@ -19,89 +20,96 @@ class VcardExport(ExportFormat, http.Controller):
         return 'text/csv;charset=utf8'
 
     def filename(self, base):
-        return base + '.vcf'
+        return base + '.ics'
 
-    def from_data_employee(self, fields, rows):
+    def from_data_calendar(self, fields, rows):
         fp = StringIO()
         writer = csv.writer(fp, delimiter=":", quotechar='"')
+        writer.writerow(("BEGIN", "VCALENDAR"))
+        writer.writerow(("VERSION", "2.0"))
+        writer.writerow(("PRODID", '-//magestore.vn//Calendar 1.0//EN'))
+        writer.writerow(("CALSCALE", "GREGORIAN"))
+
         for data in rows:
             lst_data2 = []
             lst_data2.append(data)
             for lst_data in lst_data2:
-                writer.writerow(("BEGIN", "VCARD"))
-                writer.writerow(("VERSION", "3.0"))
-                writer.writerow(("N", lst_data[0] if lst_data else ''))
-                writer.writerow(("FN", lst_data[0] if lst_data else ''))
-                writer.writerow(("TEL;TYPE=CELL", lst_data[1] if lst_data else ''))
-                writer.writerow(("TEL;TYPE=WORK", lst_data[2] if lst_data else ''))
-                writer.writerow(("EMAIL;TYPE=WORK", lst_data[3] if lst_data else ''))
-                writer.writerow(
-                    ("ORG;CHARSET=UTF-8", lst_data[5] if lst_data else ''))
-                writer.writerow(("TITLE", lst_data[6] if lst_data else ''))
-                writer.writerow(("END", "VCARD"))
-        fp.seek(0)
-        data = fp.read()
-        fp.close()
-        return data
+                event = self.env['calendar.event'].search([('id','=',lst_data[0])], limit=1)
+                tz = pytz.timezone(event.env.user.tz) if event.env.user.tz else pytz.utc
+                if event.start_datetime:
+                    start_datetime = self._convert_datetime_format(event.start_datetime)
+                else:
+                    start_datetime = ''
+                if event.start_date:
+                    start_date = self._convert_date_format(event.start_date)
+                else:
+                    start_date = ''
+                if event.stop_datetime:
+                    stop_datetime = self._convert_datetime_format(event.stop_datetime)
+                else:
+                    stop_datetime = ''
+                if event.stop_date:
+                    stop_date = self._convert_date_format(event.stop_date)
+                else:
+                    stop_date = ''
+                if event.create_date:
+                    create_date = self._convert_datetime_format(event.create_date)
+                else:
+                    create_date = self._convert_date_format(datetime.datetime.now())
+                if event.start:
+                    start = self._convert_datetime_format(event.start)
+                else:
+                    start = ''
+                if event.privacy == 'public':
+                    method = 'PUBLISH'
+                elif event.privacy == 'private':
+                    method = 'REQUEST'
+                elif event.privacy == 'confidential':
+                    method = 'REQUEST'
 
-    def from_data_contact(self, fields, rows):
-        fp = StringIO()
-        writer = csv.writer(fp, delimiter=":", quotechar='"')
-        for data in rows:
-            lst_data2 = []
-            lst_data2.append(data)
-            for lst_data in lst_data2:
-                writer.writerow(("BEGIN", "VCARD"))
-                writer.writerow(("VERSION", "3.0"))
-                writer.writerow(("N", lst_data[0] if lst_data else ''))
-                writer.writerow(("FN", lst_data[0] if lst_data else ''))
-                writer.writerow(("TEL;TYPE=CELL", lst_data[1] if lst_data else ''))
-                writer.writerow(("TEL;TYPE=WORK", lst_data[2] if lst_data else ''))
-                writer.writerow(("EMAIL;TYPE=WORK", lst_data[3] if lst_data else ''))
-                writer.writerow(
-                    ("ORG;CHARSET=UTF-8", lst_data[4] if lst_data else ''))
-                writer.writerow(("TITLE", lst_data[5] if lst_data else ''))
-                writer.writerow(("END", "VCARD"))
+                writer.writerow(("BEGIN", "VEVENT"))
+                writer.writerow(("X-WR-CALNAME", event.user_id.name.encode('utf8') if event.user_id.name else ''))
+                writer.writerow(("X-WR-TIMEZONE", tz if tz else ''))
+                writer.writerow(("METHOD", method))
+                writer.writerow(("DTSTART", start_datetime if start_datetime else start_date))
+                writer.writerow(("DTEND", stop_datetime if stop_datetime else stop_date))
+                writer.writerow(("DTSTAMP", start))
+                writer.writerow(("UID", event.user_id.id if event.user_id.id else ''))
+                writer.writerow(("CREATED", create_date))
+                writer.writerow(("DESCRIPTION", event.description.encode('utf-8') if event.description else ''))
+                writer.writerow(("LAST-MODIFIED", create_date))
+                writer.writerow(("LOCATION", event.location.encode('utf-8') if event.location else ''))
+                writer.writerow(("SEQUENCE", 0))
+                writer.writerow(("STATUS", event.state.upper()))
+                writer.writerow(("SUMMARY", event.name.encode('utf-8').upper()))
+                writer.writerow(("TRANSP", 'OPAQUE'))
+                writer.writerow(("END", 'VEVENT'))
 
-        fp.seek(0)
-        data = fp.read()
-        fp.close()
-        return data
 
-    def from_data(self, fields, rows):
-        fp = StringIO()
-        writer = csv.writer(fp, quoting=csv.QUOTE_ALL)
-
-        writer.writerow([name.encode('utf-8') for name in fields])
-
-        for data in rows:
-            row = []
-            for d in data:
-                if isinstance(d, unicode):
-                    try:
-                        d = d.encode('utf-8')
-                    except UnicodeError:
-                        pass
-                if d is False: d = None
-
-                # Spreadsheet apps tend to detect formulas on leading =, + and -
-                if type(d) is str and d.startswith(('=', '-', '+')):
-                    d = "'" + d
-
-                row.append(d)
-            writer.writerow(row)
 
         fp.seek(0)
         data = fp.read()
+        writer.writerow(("END", 'VCALENDAR'))
         fp.close()
         return data
 
+    def _convert_date_format(self, s):
+        s = s.replace('-', '')
+        s += "T000000"
+        return s
 
-class ExcelExportView(VcardExport):
+    def _convert_datetime_format(self, s):
+        s = s.replace('-', '')
+        s = s.replace(':', '')
+        s = s.replace(' ', 'T')
+        s += ""
+        return s
+
+class Vcalendar(CalendarExport):
     def __getattribute__(self, name):
         if name == 'fmt':
             raise AttributeError()
-        return super(ExcelExportView, self).__getattribute__(name)
+        return super(Vcalendar, self).__getattribute__(name)
 
     @http.route('/web/export/xls_view', type='http', auth='user')
     def export_xls_view(self, data, token):
@@ -109,19 +117,9 @@ class ExcelExportView(VcardExport):
         model = data.get('model', [])
         columns_headers = data.get('headers', [])
         rows = data.get('rows', [])
-        if model == 'res.partner':
+        if model == 'calendar.event':
             return http.request.make_response(
-                self.from_data_contact(columns_headers, rows),
-                headers=[
-                    ('Content-Disposition', 'attachment; filename="%s"'
-                     % self.filename(model)),
-                    ('Content-Type', self.content_type)
-                ],
-                cookies={'fileToken': token}
-            )
-        elif model == 'hr.employee':
-            return http.request.make_response(
-                self.from_data_employee(columns_headers, rows),
+                self.from_data_calendar(columns_headers, rows),
                 headers=[
                     ('Content-Disposition', 'attachment; filename="%s"'
                      % self.filename(model)),

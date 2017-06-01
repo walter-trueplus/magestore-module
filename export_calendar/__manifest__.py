@@ -19,6 +19,12 @@
     'data': [
         'wizard/button_export.xml',
         'wizard/export_calendar.xml',
+        'views/export_calendar.xml',
+        'views/inherit_calendar_treeview.xml',
+
+    ],
+    'qweb': [
+        "static/src/xml/export_calendar_template.xml",
     ],
      'application': True,
 }

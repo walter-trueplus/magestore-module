@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_customer_blacklist_customer_blacklist,customer_blacklist.customer_blacklist,model_customer_blacklist_customer_blacklist,,1,0,0,0

@@ -14,8 +14,10 @@ class SaleOderBlackList(models.Model):
             result = super(SaleOderBlackList, self).create(vals)
             isblacklist = self.env['res.partner'].search([('id', '=', vals.get('partner_id'))]).in_blacklist
 
-            setting = self.env['sale.config.settings'].search([])[-1]
-            black_list = setting.group_black_list
+            setting = self.env['sale.config.settings'].search([])
+            black_list = 0
+            for s in setting:
+                black_list = s.group_black_list
             if black_list == 0:         # warring
                 return result
             else:
@@ -28,13 +30,16 @@ class SaleOderBlackList(models.Model):
     @api.onchange('partner_id')
     def change_customer(self):
         in_blacklist = self.partner_id.in_blacklist
-        setting = self.env['sale.config.settings'].search([])[-1]
-        if setting.group_black_list == 0 or setting.group_black_list == 1:
-            if in_blacklist:
-                return {
+        setting = self.env['sale.config.settings'].search([])
+        group_black_list =0
+        for s in setting:
+            group_black_list = s.group_black_list
+        if group_black_list == 0 or group_black_list == 1:
+                if in_blacklist:
+                    return {
                     'warning': {
                         'title': " Warring black list",
                         'message': 'The customer in black list , Let\'s sure you want create sale order' ,
+                        }
                     }
-                }
 

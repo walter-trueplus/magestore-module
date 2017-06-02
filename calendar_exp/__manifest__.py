@@ -23,6 +23,8 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'wizard/button_export.xml',
+        'wizard/export_calendar.xml',
     ],
     # only loaded in demonstration mode
     'qweb': [

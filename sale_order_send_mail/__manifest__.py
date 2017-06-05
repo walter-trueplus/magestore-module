@@ -2,9 +2,9 @@
 {
     'name': "sale_order_send_mail",
 
-    'author': "Magestore",
+    'author': "evan@trueplus.vn",
 
-    'website': "http://www.magestore.vn",
+    # 'website': "http://www.yourcompany.com",
 
 
     # any module necessary for this one to work correctly

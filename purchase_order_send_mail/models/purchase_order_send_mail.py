@@ -1,4 +1,4 @@
-__author__ = 'Evan'
+__author__ = 'magestore.com'
 
 from odoo import models, fields, api, exceptions, _
 from datetime import timedelta
@@ -9,7 +9,7 @@ import os
 class PurchaseOrderSendMail(models.Model):
     _inherit = 'purchase.order'
 
-    @api.model
+    @api.multi
     def action_rfq_send(self, vals):
 
         ir_model_data = self.env['ir.model.data']
@@ -27,7 +27,7 @@ class PurchaseOrderSendMail(models.Model):
         ctx = dict(self.env.context or {})
         ctx.update({
             'default_model': 'purchase.order',
-            # 'default_res_id': self.ids[0],
+            'default_res_id': self.ids[0],
             'default_use_template': bool(template_id),
             'default_template_id': template_id,
             'default_composition_mode': 'comment',

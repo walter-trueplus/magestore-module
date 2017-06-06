@@ -13,7 +13,13 @@ class Home(odoo.addons.web.controllers.main.Home):
         values = request.params.copy()
         if 'g-recaptcha-response' in kwargs:
             if request.website.is_captcha_valid(kwargs['g-recaptcha-response']):
+<<<<<<< HEAD
+
                 del kwargs['g-recaptcha-response']
+
+=======
+                del kwargs['g-recaptcha-response']
+>>>>>>> dev
                 return vals
             else:
                 values['error'] = _("Please solve the captcha before submission.")

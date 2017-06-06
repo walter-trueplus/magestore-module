@@ -2,18 +2,20 @@
 {
     'name': "sale_order_send_mail",
 
-    'author': "evan@trueplus.vn",
+    'description': """
+        The module overrides the send button in the sale order
+        and its purpose is to allow the person to accept or reject
+        the order by clicking on the link in the mail.
+    """,
 
-    # 'website': "http://www.yourcompany.com",
+    'author': "magestore.com",
 
+    'website': "http://www.magestore.com",
 
-    # any module necessary for this one to work correctly
     'depends': ['base', 'sale', 'mail'],
 
-    # always loaded
     'data': [
         'data/email_template_edi_sale_custom.xml'
         # 'security/ir.model.access.csv',
     ],
-    # only loaded in demonstration mode
 }

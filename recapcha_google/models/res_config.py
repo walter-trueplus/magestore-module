@@ -9,6 +9,7 @@ class website_config_settings(models.TransientModel):
     recaptcha_private_key = fields.Char(related="website_id.recaptcha_private_key",
                                         string='reCAPTCHA Private Key')
 
+<<<<<<< HEAD
 class BaseConfigSetting(models.TransientModel):
     _inherit = 'base.config.settings'
     auth_signup_reset_password = fields.Boolean(string='Enable password reset from Login page',
@@ -18,4 +19,6 @@ class BaseConfigSetting(models.TransientModel):
                                            help="If unchecked, only invited users may sign up.",
                                            default=True)
 
+=======
+>>>>>>> dev
 

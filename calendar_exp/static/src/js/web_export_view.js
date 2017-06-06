@@ -1,4 +1,4 @@
-odoo.define('web_export_view', function (require) {
+odoo.define('calendar_export_view', function (require) {
 "use strict";
 
     var lst_view = require('web.ListView');
@@ -135,7 +135,7 @@ odoo.define('web_export_view', function (require) {
                 });
             }
             view.session.get_file({
-                url: '/web/calendar/export',
+                url: '/calendar/export',
                 data: {data: JSON.stringify({
                     model: view.model,
                     headers: export_columns_names,

@@ -60,6 +60,7 @@ class CalendarExport(ExportFormat, http.Controller):
                     start = self._convert_datetime_format(event.start)
                 else:
                     start = ''
+                method =''
                 if event.privacy == 'public':
                     method = 'PUBLISH'
                 elif event.privacy == 'private':
@@ -110,7 +111,7 @@ class Vcalendar(CalendarExport):
             raise AttributeError()
         return super(Vcalendar, self).__getattribute__(name)
 
-    @http.route('/web/calendar/export/$', type='http', auth='user')
+    @http.route('/calendar/export', type='http', auth='user')
     def export_calendar_view(self, data, token):
         data = json.loads(data)
         model = data.get('model', [])
@@ -126,13 +127,3 @@ class Vcalendar(CalendarExport):
                 ],
                 cookies={'fileToken': token}
             )
-        # else:
-        #     return http.request.make_response(
-        #         self.from_data(columns_headers, rows),
-        #         headers=[
-        #             ('Content-Disposition', 'attachment; filename="%s"'
-        #              % self.filename(model)),
-        #             ('Content-Type', self.content_type)
-        #         ],
-        #         cookies={'fileToken': token}
-        #     )

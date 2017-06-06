@@ -3,8 +3,19 @@
     <data>
 
         <template id="assets_editor_recaptcha" name="GoogleRecaptcha" inherit_id="website.layout">
+<<<<<<< HEAD
+            <xpath expr="//div[@class='container']"  position="after">
+                <script src="https://www.google.com/recaptcha/api.js"></script>
+            </xpath>
+        </template>
+        <template id="website_form_recaptcha_assets" name="Recaptcha Assets" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="javascript" src="/recapcha_google/static/src/js/website_form_recaptcha_reloaded.wesbite_form.js"/>
+                <script type="javascript" src="/recapcha_google/static/src/js/website_form_recaptcha_reloaded.js"/>
+=======
             <xpath expr="//div[@class='container']"  position="after"  >
                 <script src="https://www.google.com/recaptcha/api.js" ></script>
+>>>>>>> dev
             </xpath>
         </template>
 

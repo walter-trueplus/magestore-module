@@ -23,7 +23,9 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'report/purchase_report_inherit.xml',
+        'report/sale_report_inherit.xml',
+        'report/invoice_report_inherit.xml',
         'views/account/invoice_supplier_form_inherit.xml',
         'views/account/account_invoice_view.xml',
         'views/purchase/purchase_oder_view.xml',

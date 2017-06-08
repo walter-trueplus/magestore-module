@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="auth_oauth.login" inherit_id="web.login" name="OAuth Login buttons">
+        <xpath expr="//button[@type='submit']" position="after">
+            <br/>
+            <br/>
+            <t t-foreach="providers" t-as="p">
+                <a t-att-href="p['auth_link']" class="btn btn-default">
+                    <i t-att-class="p['css_class']"/>
+                    <t t-esc="p['body']"/>
+                </a>
+            </t>
+            <br/>
+        </xpath>
+    </template>
+</odoo>

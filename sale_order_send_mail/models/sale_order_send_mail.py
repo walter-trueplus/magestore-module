@@ -1,4 +1,4 @@
-__author__ = 'magestore.com'
+__author__ = 'Magestore'
 
 from odoo import models, fields, api, exceptions, _
 from datetime import timedelta

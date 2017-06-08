@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "sale_order_send_mail",
+    'name': "Sale order send mail",
 
     'description': """
         The module overrides the send button in the sale order
@@ -8,7 +8,7 @@
         the order by clicking on the link in the mail.
     """,
 
-    'author': "magestore.com",
+    'author': "Magestore",
 
     'website': "http://www.magestore.com",
 
@@ -18,4 +18,6 @@
         'data/email_template_edi_sale_custom.xml'
         # 'security/ir.model.access.csv',
     ],
+
+    'application': True,
 }

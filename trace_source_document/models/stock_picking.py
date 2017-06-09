@@ -7,10 +7,10 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
     origin_reference_in = fields.Many2one('purchase.order', string='Source Document',
                                           compute="origin_compute", readonly=True,
-                                          help="Reference of the document")
+                                          help="Reference of the document", store= True)
     origin_reference_out = fields.Many2one('sale.order', string='Source Document',
                                            compute="origin_compute", readonly=True,
-                                           help="Reference of the document")
+                                           help="Reference of the document", store= True)
 
     @api.depends("origin")
     def origin_compute(self):

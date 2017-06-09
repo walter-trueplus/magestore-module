@@ -6,10 +6,9 @@
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='other_info']//field[@name='origin']" position="replace">
-                   <field name="origin_reference" />
+                   <field name="origin_reference" attrs="{'invisible': [('origin_reference','=',False)]}" />
                 </xpath>
             </field>
         </record>
     </data>
-
 </odoo>

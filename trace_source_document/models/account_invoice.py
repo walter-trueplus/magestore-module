@@ -4,9 +4,10 @@ from odoo import fields, models, api
 
 
 class AccountInvoice(models.Model):
+    _name = "account.invoice"
     _inherit = "account.invoice"
     origin_reference = fields.Many2one('sale.order', string='Source Document',
-                                       compute="origin_compute", readonly=True)
+                                       compute="origin_compute", store= True)
 
     @api.depends("origin")
     def origin_compute(self):

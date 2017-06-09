@@ -6,7 +6,7 @@
                 <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
                 <field name="arch" type="xml">
                     <xpath expr="//field[@name='origin']" position="replace">
-                       <field name="reference" attrs="{'invisible': [('reference','=',False)]}"/>
+                       <field name="reference_ids" attrs="{'invisible': [('reference_ids','=',False)]}"/>
                     </xpath>
                 </field>
             </record>

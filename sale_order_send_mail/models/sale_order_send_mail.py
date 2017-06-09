@@ -1,4 +1,4 @@
-__author__ = 'evan@trueplus.vn'
+__author__ = 'Magestore'
 
 from odoo import models, fields, api, exceptions, _
 from datetime import timedelta
@@ -9,10 +9,9 @@ import os
 class SaleOrderSendMail(models.Model):
     _inherit = 'sale.order'
 
-    @api.model
+    @api.multi
     def action_quotation_send(self, vals):
 
-        # self.ensure_one()
         ir_model_data = self.env['ir.model.data']
         try:
             template_id = ir_model_data.get_object_reference('sale_order_send_mail', 'email_template_edi_sale_custom')[
@@ -26,7 +25,7 @@ class SaleOrderSendMail(models.Model):
         ctx = dict()
         ctx.update({
             'default_model': 'sale.order',
-            # 'default_res_id': self.ids[0],
+            'default_res_id': self.ids[0],
             'default_use_template': bool(template_id),
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
@@ -43,6 +42,4 @@ class SaleOrderSendMail(models.Model):
             'target': 'new',
             'context': ctx,
         }
-
-        # return super(SaleOrderSendMail, self).action_quotation_send()
 

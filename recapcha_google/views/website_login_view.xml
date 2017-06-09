@@ -2,19 +2,32 @@
 <odoo>
     <data>
         <template id="login_form_recaptcha" name="Google reCAPTCHA" inherit_id="web.login">
+<<<<<<< HEAD
+	        <xpath expr="//button" position="before">
+            	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red"></div><br/>
+=======
 	        <xpath expr="//button" position="before" >
             	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red" t-if="website.recaptcha_private_key" ></div><br/>
+>>>>>>> dev
             </xpath>
         </template>
         <template id="signup_form_recaptcha" name="Google reCAPTCHA" inherit_id="auth_signup.signup">
 	        <xpath expr="//button[@type='submit']" position="before">
+<<<<<<< HEAD
+            	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red"></div><br/>
+=======
             	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red" t-if="website.recaptcha_private_key"></div><br/>
+>>>>>>> dev
             </xpath>
         </template>
 
         <template id="reset_form_recaptcha" name="Google reCAPTCHA" inherit_id="auth_signup.reset_password">
 	    <xpath expr="//button[@type='submit']" position="before">
+<<<<<<< HEAD
+            	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red"></div><br/>
+=======
             	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red" t-if="website.recaptcha_private_key"></div><br/>
+>>>>>>> dev
             </xpath>
         </template>
     </data>

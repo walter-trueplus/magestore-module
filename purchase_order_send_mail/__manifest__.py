@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "purchase_order_send_mail",
+    'name': "Purchase order send mail",
 
     'description': """
         The module overrides the send button in the purchase order
@@ -10,13 +10,14 @@
 
     'author': "Magestore",
 
-    'website': "http://www.magestore.vn",
+    'website': "http://www.magestore.com",
 
     'depends': ['base', 'purchase', 'mail', 'stock'],
 
     'data': [
         # 'security/ir.model.access.csv',
         'data/email_template_edi_purchase_custom.xml',
-        # 'views/templates.xml',
     ],
+
+    'application': True,
 }

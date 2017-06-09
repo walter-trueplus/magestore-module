@@ -26,7 +26,12 @@
     'data': [
         'views/asset_inherit.xml',
     ],
+<<<<<<< HEAD
+    'qweb': ['static/src/xml/pos.xml'],
+    'application': True,
+=======
     'application': True,
     'qweb': ['static/src/xml/pos.xml']
+>>>>>>> dev
 
 }

@@ -10,7 +10,7 @@ class PurchaseOrderSendMail(http.Controller):
     @http.route('/purchase_order_send_mail/done/<int:mailing_id>', type='http', website=True, auth='public')
     def mailing_accept(self, mailing_id, email=None, res_id=None, **post):
         rec = request.env['purchase.order'].sudo().browse(int(mailing_id))
-        rec.write({'state': 'done'})
+        rec.write({'state': 'purchase'})
         return "<h3>Thank you for accepting the order!</h3>"
 
     @http.route('/purchase_order_send_mail/cancel/<int:mailing_id>', type='http', website=True, auth='public')

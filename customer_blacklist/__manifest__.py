@@ -10,7 +10,7 @@
     """,
 
     'author': "Magestore.com",
-    'website': "magestore.com",
+    'website': "Magestore.com",
 
     'category': 'Tools',
     'version': '0.1',

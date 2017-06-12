@@ -5,11 +5,10 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='other_info']//field[@name='origin']" position="replace">
-                   <field name="origin_reference" />
+                <xpath expr="//sheet//notebook//page[@name='other_info']//field[@name='origin']" position="replace">
+                   <field name="origin_reference_ids" attrs="{'invisible': [('origin_reference_ids','=',False)]}" />
                 </xpath>
             </field>
         </record>
     </data>
-
 </odoo>

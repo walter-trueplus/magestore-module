@@ -16,7 +16,7 @@
     'category': 'Tools',
     'version': '0.1',
 
-    'depends': ['base', 'account', 'sale', 'stock', 'purchase', 'mrp'],
+    'depends': ['base', 'account', 'sale', 'stock', 'purchase', 'mrp', 'procurement'],
 
     'data': [
         'views/account_invoice_view.xml',

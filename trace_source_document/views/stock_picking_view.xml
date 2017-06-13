@@ -6,20 +6,11 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='origin']" position="replace">
-                   <field name="origin_reference_in" attrs="{'invisible': [('origin_reference_in','=',False)]}" />
-                    <field name="origin_reference_out" attrs="{'invisible': [('origin_reference_out','=',False)]}" />
+                   <field name="origin" invisible="1"/>
                 </xpath>
-            </field>
-        </record>
-    </data>
-    <data>
-        <record id="view_account_invoice_inherit_supplier" model="ir.ui.view">
-            <field name="name">view.account.invoice.inherit_supplier</field>
-            <field name="model">account.invoice</field>
-            <field name="inherit_id" ref="account.invoice_supplier_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='origin']" position="replace">
-                   <field name="origin_reference" />
+                <xpath expr="//field[@name='origin']" position="after">
+                   <field name="origin_reference_in_ids" attrs="{'invisible': [('origin_reference_in_ids','=',False)]}" />
+                    <field name="origin_reference_out_ids" attrs="{'invisible': [('origin_reference_out_ids','=',False)]}" />
                 </xpath>
             </field>
         </record>

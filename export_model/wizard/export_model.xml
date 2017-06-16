@@ -10,9 +10,7 @@
                     <field name="name" invisible="1"/>
                     <group states="choose" string="Export Settings">
                         <field name="ir_model"/>
-                        <p>
-                            <field name="model_fields" widget="many2many_tags"/>
-                        </p>
+                        <field name="model_fields" attrs="{'invisible': [('ir_model', '=', False)]}" widget="many2many_tags"/>
                     </group>
                     <div states="get">
                         <h2>Export Complete</h2>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<!--
+  © 2015-2016 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
 
 <odoo>
 
@@ -36,6 +39,10 @@
     <field name="view_mode">tree,form</field>
 </record>
 
+<!-- Menu entry under Settings > Technical
+We prefered the menu entry of previous Odoo versions under
+Sales > Config > Address Book > Localization, but in v10 that
+would required a dependency on sales_team, and we don't want that -->
 <menuitem id="root_map_website_menu" name="Map Websites" parent="base.menu_custom" sequence="100"/>
 
 <menuitem id="map_website_menu" action="map_website_action"

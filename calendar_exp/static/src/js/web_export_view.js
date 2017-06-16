@@ -9,7 +9,6 @@ odoo.define('calendar_export_view', function (require) {
                 editable: this.is_action_enabled('edit'),
                 model: this.model
             });
-            console.log('co chay k e');
             if (this.fields_view.toolbar) {
                 this.sidebar.add_toolbar(this.fields_view.toolbar);
             }

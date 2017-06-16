@@ -36,7 +36,6 @@ odoo.define('web_export_view_vcard', function (require) {
 
     Sidebar.include({
         init: function(parent, options) {
-        console.log('da vao render Sidebar');
         var self = this;
         this._super(parent, options);
         this.options = _.defaults(options || {}, {

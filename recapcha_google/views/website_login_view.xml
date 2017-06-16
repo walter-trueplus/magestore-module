@@ -17,5 +17,6 @@
             	<br/><div class="g-recaptcha" t-att-data-sitekey="website.recaptcha_site_key" data-theme="red" ></div><br/>
             </xpath>
         </template>
+
     </data>
 </odoo>

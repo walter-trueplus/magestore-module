@@ -13,7 +13,7 @@ class ExportModel(models.TransientModel):
     name = fields.Char(string="File Name", readonly=True)
     data = fields.Binary(string="File", readonly=True)
     ir_model = fields.Many2one('ir.model')
-    model_fields = fields.Many2many('ir.model.fields')
+    model_fields = fields.Many2many('ir.model.fields', domain = [('model', '=', '')])
     state = fields.Selection([('choose', 'choose'), ('get', 'get')], default='choose')
 
     @api.multi

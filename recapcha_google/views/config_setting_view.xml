@@ -8,22 +8,39 @@
             <field name="inherit_id" ref="website.view_website_config_settings" />
             <field name="arch" type="xml">
                 <group name="social" position="after">
-                    <group string="Google reCAPTCHA Reloaded">
-                        <label for="recaptcha_site_key"/>
-                        <div name="recaptcha_site_key">
-                            <div class="oe_inline">
-                                <field name="recaptcha_site_key" placeholder="Your reCAPTCHA site key"/>
+                        <group string="Google reCAPTCHA Reloaded">
+                            <label for="recaptcha_site_key"/>
+                            <div name="recaptcha_site_key">
+                                <div class="oe_inline">
+                                    <field name="recaptcha_site_key" placeholder="Your reCAPTCHA site key"/>
+                                </div>
                             </div>
-                        </div>
-                        <label for="recaptcha_private_key"/>
-                        <div name="recaptcha_private_key">
-                            <div class="oe_inline">
-                                <field name="recaptcha_private_key" placeholder="Your reCAPTCHA private key"/>
+                            <label for="recaptcha_private_key"/>
+                            <div name="recaptcha_private_key">
+                                <div class="oe_inline">
+                                    <field name="recaptcha_private_key" placeholder="Your reCAPTCHA private key"/>
+                                </div>
                             </div>
-                        </div>
-                    </group>
+                            <div>
+                                 <script type="text/javascript">
+                                        odoo.define('recaptcha_reloaded.test_form', function (require) {
+                                            function load_captcha(){
+                                                console.log("asdasd");
+                                                return false ;
+                                            }
+                                        });
+                                 </script>
+                                <form action="?" method="POST" onsubmit="return load_captcha();">
+                                    <script src="https://www.google.com/recaptcha/api.js"/>
+                                    <div id="recaptcha" class="g-recaptcha" data-sitekey="recaptcha_site_key"></div>
+                                  <br/>
+                                    <input type="submit" value="Submit"></input>
+                                </form>
+                            </div>
+                        </group>
                 </group>
             </field>
         </record>
+
     </data>
 </odoo>

@@ -18,7 +18,5 @@ class website(models.Model):
                 response = requests.post('https://www.google.com/recaptcha/api/siteverify', params=get_res)
             except Exception, e:
                 raise UserWarning(e.message)
-            print response.content
             res_con = json.loads(response.content)
-
         return res_con

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template_download" xml:space="preserve">
+<t t-name="cld_v">
+    <div t-if="widget.model == 'sale.order'" class="o_cp_sidebar btn-group btn-group-sm">
+        <button class="btn btn-default export_treeview_xls_1" type="button" title="Merge">
+            <i t-translation="off" class="fa fa-download"></i>
+        </button>
+    </div>
+</t>
+</templates>

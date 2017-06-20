@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="inherit_base_setup" model="ir.ui.view">
+        <field name="name">base.config.settings</field>
+        <field name="model">base.config.settings</field>
+        <field name="inherit_id" ref="base_setup.view_general_configuration"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/group[1]" position="before">
+                <group string="Login option">
+                    <label string="Require Case Sensivity"/>
+                    <div>
+                        <div>
+                            <field name="case_sensitive_option"/>
+                        </div>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

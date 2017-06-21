@@ -133,7 +133,7 @@ odoo.define('calendar_export_view', function (require) {
                     });
                     export_rows.push(export_row);
 
-                });
+                });tock
 
             }
             var handle_model = new Model('handle.sale.order');

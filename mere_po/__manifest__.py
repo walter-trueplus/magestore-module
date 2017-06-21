@@ -4,11 +4,10 @@
 
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        this module allow user Merge (some) purchase_order from same vendor to 1 stock_picking record""",
 
     'description': """
-        Long description of module's purpose
+       
     """,
 
     'author': "Magestore",

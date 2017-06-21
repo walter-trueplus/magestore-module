@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mere_so_mere_so,mere_so.mere_so,model_mere_so_mere_so,,1,0,0,0

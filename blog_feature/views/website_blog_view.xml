@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_blog_post_form_inherit_ben" model="ir.ui.view">
+            <field name="name">view.blog.post.form.inherit</field>
+            <field name="model">blog.post</field>
+            <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="sheet//group//field[@name='tag_ids']" position="after">
+                    <field name="is_feature"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

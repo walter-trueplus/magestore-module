@@ -1,4 +1,4 @@
-odoo.define('calendar_export_view', function (require) {
+odoo.define('mere_so', function (require) {
 "use strict";
 
     var lst_view = require('web.ListView');
@@ -62,7 +62,7 @@ odoo.define('calendar_export_view', function (require) {
             var self = this;
             this._super.apply(this, arguments);
             if (self.getParent().ViewManager.active_view.type == 'list') {
-                self.$el.find('.o_dropdown').last().append(QWeb.render('cld_v', {widget: self}));
+                self.$el.find('.o_dropdown').last().append(QWeb.render('mere_so', {widget: self}));
                 self.$el.find('.export_treeview_xls_1').on('click', self.on_sidebar_export_treeview_xls);
             }
         },
@@ -133,24 +133,12 @@ odoo.define('calendar_export_view', function (require) {
                     });
                     export_rows.push(export_row);
 
-                });tock
+                });
 
             }
             var handle_model = new Model('handle.sale.order');
-//            var ga = JSON.stringify(export_rows);
             console.log(export_rows);
-            handle_model.call('get_all_sale_order_lines', [[export_rows]]).then(function(result){console.log('da chay');});
-//            view.session.get_file({
-////                url: '/so/merge',
-////                data: {data: JSON.stringify({
-////                    model: view.model,
-////                    headers: export_columns_names,
-////                    rows: export_rows
-////                })},
-////                complete: $.unblockUI
-//                var handle_model = new Model('handle.sale.order');
-//                handle_model.call('get_all_sale_order_lines', [[]]);
-//            });
+            handle_model.call('get_all_sale_order_lines', [[export_rows]]).then(function(result){console.log('mere_so_worked!');});
         }
 
     });

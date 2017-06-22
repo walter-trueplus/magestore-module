@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "merge_so",
+    'name': "mere_po",
+
 
     'summary': """
-        this module allow user Merge (some) sale_order from same partner to 1 stock_picking record""",
+        this module allow user Merge (some) purchase_order from same vendor to 1 stock_picking record""",
 
     'description': """
-    
+       
     """,
 
     'author': "Magestore",
@@ -17,7 +18,7 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','stock'],
+    'depends': ['base','purchase'],
 
     # always loaded
     'data': [
@@ -26,7 +27,7 @@
         'views/templates.xml',
     ],
     'qweb': [
-        "static/src/xml/merge_so.xml",
+        "static/src/xml/merge_po.xml",
     ],
     'application': True,
 }

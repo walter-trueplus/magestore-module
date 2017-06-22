@@ -1,4 +1,4 @@
-odoo.define('mere_so', function (require) {
+odoo.define('mere_po_view', function (require) {
 "use strict";
 
     var lst_view = require('web.ListView');
@@ -62,8 +62,8 @@ odoo.define('mere_so', function (require) {
             var self = this;
             this._super.apply(this, arguments);
             if (self.getParent().ViewManager.active_view.type == 'list') {
-                self.$el.find('.o_dropdown').last().append(QWeb.render('mere_so', {widget: self}));
-                self.$el.find('.export_treeview_xls_1').on('click', self.on_sidebar_export_treeview_xls);
+                self.$el.find('.o_dropdown').last().append(QWeb.render('cld_v1', {widget: self}));
+                self.$el.find('.merge').on('click', self.on_sidebar_export_treeview_xls);
             }
         },
 
@@ -96,7 +96,6 @@ odoo.define('mere_so', function (require) {
                 }
             });
             var export_rows = [];
-//            $.blockUI();
             if (children) {
                 // find only rows with data
                 view.$el.find('.o_list_view > tbody > tr[data-id]:has(.o_list_record_selector input:checkbox:checked)')
@@ -136,9 +135,9 @@ odoo.define('mere_so', function (require) {
                 });
 
             }
-            var handle_model = new Model('handle.sale.order');
+            var handle_model = new Model('handle.purchase.order');
             console.log(export_rows);
-            handle_model.call('get_all_sale_order_lines', [[export_rows]]).then(function(result){console.log('mere_so_worked!');});
+            handle_model.call('get_all_purchase_lines', [[export_rows]]).then(function(result){console.log('worked!');});
         }
 
     });

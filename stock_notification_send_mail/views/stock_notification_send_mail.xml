@@ -5,13 +5,13 @@
         <record forcecreate="True" id="ir_cron_stock_notification_send_mail" model="ir.cron">
             <field name="name">Stock notification send mail queue</field>
             <field eval="True" name="active"/>
-            <field name="interval_number">1</field>
-            <field name="interval_type">minutes</field>
+            <field name="interval_number">3</field>
+            <field name="interval_type">hours</field>
             <field name="numbercall">-1</field>
             <field eval="False" name="doall"/><!-- resend if false when restart-->
             <field eval="'stock.notification.send.mail'" name="model"/>
             <field eval="'_check_minimum_quant'" name="function"/>
-            <field name="nextcall" eval="(DateTime.now() + timedelta(minutes=180)).strftime('%Y-%m-%d 08:00:00')"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(minutes=180)).strftime('%Y-%m-%d 07:00:00')"/>
             <field eval="'()'" name="args"/>
         </record>
 

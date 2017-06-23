@@ -35,46 +35,44 @@ class StockNotificationSendMail(models.Model):
 
     @api.model
     def create(self, vals):
-        query = "DELETE FROM stock_notification_send_mail WHERE id >= 0"
-        res = self._cr.execute(query)
-        if res == None:
-            return super(StockNotificationSendMail, self).create(vals)
+        obj = self.env['stock.notification.send.mail'].search([('id', '>', 0)])
+        for r in obj:
+            r.unlink()
+        return super(StockNotificationSendMail, self).create(vals)
 
     def _check_minimum_quant(self):
-        query = "SELECT SUM(qty) AS sum_qty FROM stock_quant"
-        self._cr.execute(query)
-        total_quant = self._cr.dictfetchone()
-        sum_qty = total_quant['sum_qty']
-
-        query2 = "SELECT minimum_quant, email_address FROM stock_notification_send_mail snsm order by snsm.id desc LIMIT 1"
-        self._cr.execute(query2)
-        stock_noti_obj = self._cr.dictfetchone()
-
+        stock_quant_obj = self.env['stock.quant'].search([('id', '>', 0)])
         mail_mail_obj = self.env['mail.mail']
-        res_users_obj = self.env['res.users'].search([('id', '=', self._uid)])
         mail_content = []
-        if sum_qty != None and stock_noti_obj != None:
-            if stock_noti_obj['minimum_quant'] > int(sum_qty):
+        body_html = ''
+        mail_to = ''
+        if stock_quant_obj:
+            stock_noti_obj = self.env['stock.notification.send.mail'].search([('id', '>', 0)])
+            for r in stock_quant_obj:
+                quant = self.env['stock.quant'].search([('id', '=', r.id)])
+                qty = quant['qty']
 
-                # create and send mail
-                if stock_noti_obj['email_address'] == None:
-                    mail_content.append(mail_mail_obj.create({
-                        'email_to': res_users_obj.email,
-                        'body_html': '<pre><span class="inner-pre" style="font-size: 15px">'
-                                     'Số lượng sản phẩm hiện tại trong kho là %s, '
-                                     'nhỏ hơn số lượng tối thiểu là %s</span></pre>' % (
-                                         int(sum_qty), stock_noti_obj['minimum_quant'])
-                    }))
-                    mail_mail_obj.send(mail_content)
-                else:
-                    mail_content.append(mail_mail_obj.create({
-                        'email_to': stock_noti_obj['email_address'],
-                        'body_html': '<pre><span class="inner-pre" style="font-size: 15px">'
-                                     'Số lượng sản phẩm hiện tại trong kho là %s, '
-                                     'nhỏ hơn số lượng tối thiểu là %s</span></pre>' % (
-                                         int(sum_qty), stock_noti_obj['minimum_quant'])
-                    }))
-                    mail_mail_obj.send(mail_content)
+                res_users_obj = self.env['res.users'].search([('id', '=', self._uid)])
+
+                if qty and stock_noti_obj:
+                    if stock_noti_obj['minimum_quant'] > int(qty):
+
+                        # create and send mail
+                        body_html+= 'Product: %s, the current quantity in stock: %s<br/> ' % (r.product_id.product_tmpl_id.name,
+                                                                                     int(qty))
+
+                        if stock_noti_obj['email_address']:
+                            mail_to = stock_noti_obj['email_address']
+
+                        else:
+                            mail_to = res_users_obj.email
+            body_html+= 'less than minimum quantity: %s' % (stock_noti_obj['minimum_quant'])
+            mail_content.append(mail_mail_obj.create({
+                'subject': 'Notification',
+                'email_to': mail_to,
+                'body_html': body_html
+            }))
+            mail_mail_obj.send(mail_content)
 
     minimum_quant = fields.Integer('Minimum Quantity in Stock', required=True, default=_get_current_minimum_quant)
     email_address = fields.Char('Email Address', default=_get_current_email_address)

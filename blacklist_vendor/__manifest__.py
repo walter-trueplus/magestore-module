@@ -1,7 +1,14 @@
 {
-    'name': 'black list vendor',
-    'depends': ['base','purchase'],
-    'desciption': 'module for helping manager vendors in black list',
+    'name': 'Black list vendor',
+    'depends': ['base', 'purchase', 'contacts'],
+    'summary': """
+        Notify while create purchase order in case the vendor in black list""",
+
+    'description': """
+        Notify while create purchase order in case the vendor in black list
+    """,
+    'author': "Magestore.com",
+    'website': "Magestore.com",
     'data': [
         'view/vendor_view.xml',
         'view/setting.xml'

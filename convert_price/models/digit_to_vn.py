@@ -4,10 +4,9 @@ from  odoo import models
 from  odoo import fields
 
 
-
 class Num2Word_VN(models.Model):
-
     _name = 'convert.to.vn'
+
     @api.model
     def _convert_nn(self, val):
         if val < 20:
@@ -15,13 +14,13 @@ class Num2Word_VN(models.Model):
         for (dcap, dval) in ((k, 20 + (10 * v)) for (v, k) in enumerate(self._tens)):
             if dval + 10 > val:
                 if val % 10:
-                    a = 'lăm'
-                    if self._to_19[val % 10] == 'một':
-                        a = 'mốt'
+                    a = u'lăm'
+                    if self._to_19[val % 10] == u'một':
+                        a = u'mốt'
                     else:
                         a = self._to_19[val % 10]
-                    if self._to_19[val % 10] == 'năm':
-                        a = 'lăm'
+                    if self._to_19[val % 10] == u'năm':
+                        a = u'lăm'
                     return dcap + ' ' + a
                 return dcap
 
@@ -30,14 +29,14 @@ class Num2Word_VN(models.Model):
         word = ''
         (mod, rem) = (val % 100, val // 100)
         if rem > 0:
-            word = self._to_19[rem] + ' trăm'
+            word = self._to_19[rem] + u' trăm'
             if mod > 0:
                 word = word + ' '
         if mod > 0 and mod < 10:
             if mod == 5:
-                word = word != '' and word + 'lẻ năm' or word + 'năm'
+                word = word != '' and word + u'lẻ năm' or word + u'năm'
             else:
-                word = word != '' and word + 'lẻ ' \
+                word = word != '' and word + u'lẻ ' \
                                       + self._convert_nn(mod) or word + self._convert_nn(mod)
         if mod >= 10:
             word = word + self._convert_nn(mod)
@@ -69,15 +68,13 @@ class Num2Word_VN(models.Model):
         start_word = self.vietnam_number(int(the_list[0]))
         final_result = start_word
         if len(the_list) > 1 and int(the_list[1]) > 0:
-            # end_word = self.vietnam_number(int(the_list[1]))
-            # final_result = final_result + ' phẩy ' + end_word
-            end_word=the_list[1]
-            extra=''
-            if len(end_word)>0:
+            end_word = the_list[1]
+            extra = ''
+            if len(end_word) > 0:
                 for digit in end_word:
-                    extra+=self._to_19[int(digit)]+' '
-            final_result=final_result+' phẩy ' + extra
-        return final_result
+                    extra += self._to_19[int(digit)] + ' '
+            final_result = final_result + u' phẩy ' + extra
+        return final_result.upper()
 
     @api.model
     def to_cardinal(self, number):
@@ -87,15 +84,15 @@ class Num2Word_VN(models.Model):
     def to_ordinal(self, number):
         return self.to_cardinal(number)
 
-    _to_19 = ('không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu',
-             'bảy', 'tám', 'chín', 'mười', 'mười một', 'mười hai',
-             'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy',
-             'mười tám', 'mười chín')
-    _tens = ('hai mươi', 'ba mươi', 'bốn mươi', 'năm mươi',
-            'sáu mươi', 'bảy mươi', 'tám mươi', 'chín mươi')
-    _denom = ('',
-             'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'trăm nghìn tỷ',
-             'Quintillion', 'Sextillion', 'Septillion', 'Octillion', 'Nonillion',
-             'Decillion', 'Undecillion', 'Duodecillion', 'Tredecillion',
-             'Quattuordecillion', 'Sexdecillion', 'Septendecillion',
-             'Octodecillion', 'Novemdecillion', 'Vigintillion')
+    _to_19 = (u'không', u'một', u'hai', u'ba', u'bốn', u'năm', u'sáu',
+              u'bảy', u'tám', u'chín', u'mười', u'mười một', u'mười hai',
+              u'mười ba', u'mười bốn', u'mười lăm', u'mười sáu', u'mười bảy',
+              u'mười tám', u'mười chín')
+    _tens = (u'hai mươi', u'ba mươi', u'bốn mươi', u'năm mươi',
+             u'sáu mươi', u'bảy mươi', u'tám mươi', u'chín mươi')
+    _denom = (u'',
+              u'nghìn', u'triệu', u'tỷ', u'nghìn tỷ', u'trăm nghìn tỷ',
+              u'Quintillion', u'Sextillion', u'Septillion', u'Octillion', u'Nonillion',
+              u'Decillion', u'Undecillion', u'Duodecillion', u'Tredecillion',
+              u'Quattuordecillion', u'Sexdecillion', u'Septendecillion',
+              u'Octodecillion', u'Novemdecillion', u'Vigintillion')

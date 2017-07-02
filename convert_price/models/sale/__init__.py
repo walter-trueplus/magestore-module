@@ -1,2 +1,2 @@
-from . import sale_config_setting
+# -*- coding:utf-8 -*-
 from . import sale_oder_inherit

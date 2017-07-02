@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_report_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='total']" position="after">
+            <div class="row">
+                <div class="col-xs-4 pull-right">
+                    <span t-field="doc.amount_total_text"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

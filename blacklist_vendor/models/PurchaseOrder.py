@@ -14,7 +14,7 @@ class PurchaseOrder(models.Model):
     @api.onchange('partner_id')
     def _on_change_partner_id(self):
         print 'black list:', self.partner_id.in_blacklist
-        option = self.env['purchase.config.settings'].search([])[-1].warning_option
+        option = self._get_warning_option()
         if option == 'warning' and self.partner_id.in_blacklist:  # show warning
             return {'warning': {
                 'title': _('Warning'),
@@ -37,11 +37,20 @@ class PurchaseOrder(models.Model):
         print 'vendor in black list::', vendor.in_blacklist
         # check option when create purchase whie vendor in black list:
         # get the lastest record has been modify
-        setting = self.env['purchase.config.settings'].search([])[-1]
-        option = setting.warning_option
+        option = self._get_warning_option()
         if option == 'no_warning':  # create purcharse, do not show warning
             return super(PurchaseOrder, self).create(vals)
         elif option == 'warning':  # show warning
             return super(PurchaseOrder, self).create(vals)
         elif option == 'eject':  # eject create purchase:
             raise exceptions.UserError(_("You can not create purchase order in case the vendor in black list"))
+    @api.model
+    def _get_warning_option(self):
+        #get warning option from data base
+        #comment thu 2
+        setting = self.env['purchase.config.settings'].search([])
+        if len(setting)==0:
+            return 'warning'
+        else:
+            return setting[-1].warning_option
+

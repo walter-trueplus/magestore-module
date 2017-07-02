@@ -16,6 +16,7 @@ from odoo.addons.auth_signup.models.res_users import SignupError
 def check_correct_format_email(email):
     return re.match(r"[^@]+@[^@]+\.[^@]+", email)
 
+
 def password_check(password):
     """
     Verify the strength of 'password'
@@ -119,6 +120,10 @@ class UserAccount(AuthSignupHome):
         if request.session.uid:
             return request.redirect('/')
         return res
+
+    def get_config_validate_email_para(self):
+        IrConfig = request.env['ir.config_parameter']
+        return {'valiate_email': IrConfig.sudo().get_param('validate_email_signup') == True}
 
 
 # change password and change login name

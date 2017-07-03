@@ -10,19 +10,18 @@
                 </xpath>
             </field>
         </record>
-        <record id="add_validate_mail_setting" model="ir.ui.view">
-        	<field name="name">add.validate.mail.setting</field>
-        	<field name="model">base.config.settings</field>
-        	<field name="inherit_id" ref="auth_signup.view_general_configuration"/>
-        	<field name="arch" type="xml">
-        		<xpath expr="//field[@name='auth_signup_uninvited']/.." postion="after">
-        			<div>
-        				<field name="validate_email_signup" class="oe_inline"/>
-        				<label for="validate_email_signup"/>
-        			</div>
-        			
-        		</xpath>
-        	</field>
-        </record>
+        <!--<record id="add_validate_mail_setting" model="ir.ui.view">-->
+        	<!--<field name="name">add.validate.mail.setting</field>-->
+        	<!--<field name="model">base.config.settings</field>-->
+        	<!--<field name="inherit_id" ref="auth_signup.view_general_configuration"/>-->
+        	<!--<field name="arch" type="xml">-->
+        		<!--<xpath expr="//field[@name='auth_signup_uninvited']/.." postion="after">-->
+        			<!--<div>-->
+        				<!--<field name="validate_email_signup" class="oe_inline"/>-->
+        				<!--<label for="validate_email_signup"/>-->
+        			<!--</div>-->
+        		<!--</xpath>-->
+        	<!--</field>-->
+        <!--</record>-->
     </data>
 </odoo>

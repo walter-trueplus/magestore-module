@@ -12,7 +12,7 @@
     + create new model for mail alias
     + show all mails incoming through mail alias you created before
     + show button for fetch mail manually
-    You can fetch all mails coming to odoo through 'mars+fetch+mail@trueplus.vn'
+    You can fetch all mails coming to odoo through your domain.
     If you want to recive mails through another mail , change information of the alias you created
     or create new one -- see Configuration below
     
@@ -49,7 +49,6 @@
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
-        'data/data.xml',
     ],
     # only loaded in demonstration mode
     'qweb': [

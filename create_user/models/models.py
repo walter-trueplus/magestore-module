@@ -45,4 +45,3 @@ class User(models.Model):
 
         res = super(User, self).write(vals)
         return res
-# test 1

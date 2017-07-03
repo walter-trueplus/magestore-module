@@ -133,85 +133,83 @@ class PasswordEmail(Home):
         if not request.session.uid:
             return request.redirect('/')
         qcontext = request.params.copy()
-        if 'error' not in qcontext and request.httprequest.method == 'POST':
-            try:
-                self.do_reset_password_direct(qcontext)
-                if check_correct_format_email(qcontext.get('login')):
-                    request.env['res.users'].sudo().reset_password(
-                        qcontext.get('login'))
+        qcontext = self.do_reset_password_direct(qcontext)
+        if request.httprequest.method == 'POST':
+            error_detail = qcontext.get('error_detail')
+            if not error_detail:
+                request.env['res.users'].search([('id', '=', qcontext.get('uid'))]).change_password(
+                    qcontext.get('old_password'), qcontext.get('new_password'))
                 return request.redirect('/web')
-            except ResetDirectError:
+            else:
                 qcontext['error'] = qcontext.get('error_detail')
-            except Exception:
-                qcontext['error'] = 'Could not reset password.'
+
         return request.render('website_my_profile.form_reset', qcontext)
 
     def do_reset_password_direct(self, qcontext):
-        values = {key: qcontext.get(key) for key in (
-            'old_password', 'new_password', 'retype_password')}
         uid = request.session.uid
         login = request.env['res.users'].sudo().search(
             [('id', '=', uid)]).login
         qcontext['login'] = login
+        qcontext['uid'] = uid
 
         if not login:
             qcontext['error_detail'] = 'No login provided.'
-            raise ResetDirectError
 
-        if not password_check(qcontext.get('password')).get('password_ok'):
-            qcontext['error_detail'] = 'Password needs : 8 characters length or more, at least 1 digit,\n' \
-                                       '1 symbol, 1 uppercase, 1 lowercase'
-            raise ResetDirectError
-
-        if values.get('new_password') != values.get('retype_password'):
+        if qcontext.get('new_password') != qcontext.get('retype_password'):
             qcontext['error_detail'] = 'Passwords do not match, please retype them.'
-            raise ResetDirectError
 
-        request.env['res.users'].sudo().change_password(
-            values.get('old_password'), values.get('new_password'))
+        try:
+            # check login and password correct or not
+            request.session.authenticate(request.session.db, '', qcontext.get('old_password'), uid)
+        except Exception:
+            qcontext["error_detail"] = 'Wrong password! Please enter password again.'
+
+        return qcontext
 
     @http.route('/web/change_email', type='http', auth='public', website=True)
     def change_email(self, *args, **kw):
         if not request.session.uid:
             return request.redirect('/')
         qcontext = request.params.copy()
-        uid = request.session.uid
-        current_login = request.env['res.users'].sudo().search(
-            [('id', '=', uid)]).login
+        qcontext = self.do_change_email(qcontext)
         if kw:
             qcontext.update({'login': kw['login']})
         if not qcontext.get('login'):
-            qcontext['login'] = current_login
-        if 'error' not in qcontext and request.httprequest.method == 'POST':
-            try:
-                self.do_change_email(qcontext)
-                user = request.env['res.users'].sudo().search([('login', '=', current_login)])[0]
+            qcontext['login'] = qcontext['current_login']
+        if request.httprequest.method == 'POST':
+            error_detail = qcontext.get('error_detail')
+            if not error_detail:
+                user = request.env['res.users'].sudo().search([('login', '=', qcontext.get('current_login'))])[0]
                 if user:
                     user.write({'login': qcontext.get('login')})
                     return request.redirect('/web/session/logout?redirect=/web/login')
-            except ChangeMailError:
-                qcontext['error'] = qcontext.get('error_detail')
-            except Exception:
-                qcontext['error'] = 'Could not change email.'
+            else:
+                qcontext['error'] = qcontext['error_detail']
+
         return request.render('website_my_profile.form_email', qcontext)
 
     def do_change_email(self, qcontext):
         uid = request.session.uid
         current_login = request.env['res.users'].sudo().search(
             [('id', '=', uid)]).login
+        qcontext['uid'] = uid
+        qcontext['current_login'] = current_login
 
         if not qcontext.get('login') or not current_login:
             qcontext['error_detail'] = 'No login provided.Please go to Sign in page'
-            raise ChangeMailError
 
         if qcontext.get('login') != current_login and request.env['res.users'].sudo().search(
                 [('login', '=', qcontext.get('login'))]):
             qcontext[
                 'error_detail'] = 'Another user is already registered using this login name.'
-            raise ChangeMailError
 
-        request.env['res.users'].change_password(
-            qcontext.get('password'), qcontext.get('password'))
+        try:
+            # check login and password correct or not
+            request.session.authenticate(request.session.db, '', qcontext.get('password'), uid)
+        except Exception:
+            qcontext["error_detail"] = 'Wrong password! Please enter password again.'
+
+        return qcontext
 
     @http.route()
     def web_login(self, redirect=None, **kw):

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="pos_extend" inherit_id="point_of_sale.template">
+    <t t-extend="Orderline">
+        <t t-jquery=".price" t-operation="append">
+            <span class="fa fa-trash delete-product" type="button"/>
+        </t>
+    </t>
+</templates>

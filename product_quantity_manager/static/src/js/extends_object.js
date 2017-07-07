@@ -14,19 +14,15 @@ odoo.define('pos_product_available', function (require) {
         if(model.model === 'product.product'){
 
              model.fields.push('qty_available');
-<<<<<<< HEAD
-			 // console.log("abc");
         }
 
     }
 //	override action when product widget is clicked
-=======
 
         }
 
     }
 //override action when product widget is clicked
->>>>>>> dev
 
     var ProductScreenWidget = ProductScreenWidget.ProductScreenWidget.include({
         click_product: function(product){

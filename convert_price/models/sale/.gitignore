@@ -1,0 +1,4 @@
+*.pyc
+/.gitignore
+/__init__.pyc
+/sale_oder_inherit.pyc

@@ -1,0 +1,4 @@
+*.pyc
+/.gitignore
+/__init__.pyc
+/account_invoice_inherit.pyc

@@ -1,0 +1,4 @@
+*.pyc
+/.gitignore
+/__init__.pyc
+/digit_to_vn.pyc

@@ -1,0 +1,4 @@
+*.pyc
+/.gitignore
+/__init__.pyc
+/purchase_order_inherit.pyc

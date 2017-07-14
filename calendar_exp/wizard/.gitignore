@@ -1,0 +1,4 @@
+*.pyc
+/.gitignore
+/__init__.pyc
+/export_calendar.pyc

@@ -1,0 +1,5 @@
+*.pyc
+/.gitignore
+/__init__.pyc
+/export_contact_vcard.pyc
+/export_employee_vcard.pyc

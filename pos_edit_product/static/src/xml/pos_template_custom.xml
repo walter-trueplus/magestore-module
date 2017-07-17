@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="pos_edit_extend" inherit_id="point_of_sale.template">
+    <t t-extend="Orderline">
+        <t t-jquery=".price" t-operation="append">
+            <span class="fa fa-pencil-square-o edit-product" type="button"/>
+        </t>
+    </t>
+    <t t-extend="Orderline">
+        <t t-jquery=".info" t-operation="append">
+            <li class="info-copy oe_hidden">
+                <input class="input-quant" t-att-value="line.get_quantity_str()"
+                       title="Press enter if you have filled in the product number"/>
+                <t t-esc="line.get_unit().name"/>
+                at
+                <t t-esc="widget.format_currency(line.get_unit_display_price(),'Product Price')"/>
+                /
+                <t t-esc="line.get_unit().name"/>
+            </li>
+
+        </t>
+    </t>
+</templates>

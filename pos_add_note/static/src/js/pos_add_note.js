@@ -5,9 +5,8 @@ odoo.define('pos_add_note.pos_add_note', function (require) {
     var gui = require('point_of_sale.gui');
     var models = require('point_of_sale.models');
     var core = require('web.core');
-    var Model = require('web.DataModel');
+    
     var utils = require('web.utils');
-    var formats = require('web.formats');
 
     var QWeb = core.qweb;
     var _t = core._t;

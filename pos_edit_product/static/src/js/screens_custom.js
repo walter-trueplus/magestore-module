@@ -6,8 +6,7 @@ odoo.define('pos_edit_product.screens_custom', function (require) {
     var models = require('point_of_sale.models');
     var core = require('web.core');
     var utils = require('web.utils');
-    var formats = require('web.formats');
-
+    
     var screens = require('point_of_sale.screens');
 
     var Orderline = PosBaseWidget.include({

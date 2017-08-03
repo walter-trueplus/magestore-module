@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="create_users_from_excel_list.list">
+      <field name="name">create_users_from_excel_list list</field>
+      <field name="model">create_users_from_excel_list.create_users_from_excel_list</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="create_users_from_excel_list.action_window">
+      <field name="name">create_users_from_excel_list window</field>
+      <field name="res_model">create_users_from_excel_list.create_users_from_excel_list</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="create_users_from_excel_list.action_server">
+      <field name="name">create_users_from_excel_list server</field>
+      <field name="model_id" ref="model_create_users_from_excel_list_create_users_from_excel_list"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="create_users_from_excel_list" id="create_users_from_excel_list.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="create_users_from_excel_list.menu_1" parent="create_users_from_excel_list.menu_root"/>
+    <menuitem name="Menu 2" id="create_users_from_excel_list.menu_2" parent="create_users_from_excel_list.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="create_users_from_excel_list.menu_1_list" parent="create_users_from_excel_list.menu_1"
+              action="create_users_from_excel_list.action_window"/>
+    <menuitem name="Server to list" id="create_users_from_excel_list" parent="create_users_from_excel_list.menu_2"
+              action="create_users_from_excel_list.action_server"/>
+    -->
+  </data>
+</odoo>

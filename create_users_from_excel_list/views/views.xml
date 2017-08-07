@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <!--<record id="export_error_list" model="ir.ui.view">-->
+            <!--<field name="name">Export Error</field>-->
+            <!--<field name="model">export.error</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Export Error">-->
+                    <!--<h2>Export Error:</h2>-->
+                    <!--<p>Here is the exported file:-->
+                        <!--<field name="data" readonly="1" filename="name"/>-->
+                    <!--</p>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

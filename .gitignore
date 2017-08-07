@@ -1,1 +1,4 @@
-*.pyc
+# dotfiles
+.*
+# compiled python files
+*.py[co]

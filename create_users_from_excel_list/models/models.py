@@ -514,7 +514,6 @@ class create_users_from_excel_list(models.TransientModel):
                                         group_env_1 = self.env.ref('base.group_user', False)  # Employee
                                         group_env_1.write({'users': [(3, user_obj_2.id)]})
 
-                return self.env['export.error'].export(lst_err)
             return import_result['messages']
         else:
             try:

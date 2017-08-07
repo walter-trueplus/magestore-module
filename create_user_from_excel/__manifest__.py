@@ -1,23 +1,28 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "create_user_from_excel",
+    'name': "Create user from excel file",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Create new employee associated with user when created an user
+        
+        """,
 
     'description': """
-        Long description of module's purpose
+    This module will provides some new actions when you create an User account :
+    
+    + Read users from excel file
+    + Create users with roles
+    + Create employee for each user created
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Magestore",
+    'website': "https://www.magestore.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'category': 'Tools',
+    'version': '1.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base'],

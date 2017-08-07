@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- create new record in ir.cron model -->
+        <record forcecreate="True" id="ir_cron_stock_notification_send_mail" model="ir.cron">
+            <field name="name">Stock notification send mail queue</field>
+            <field eval="True" name="active"/>
+            <field name="interval_number">3</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/><!-- resend if false when restart-->
+            <field eval="'stock.notification.send.mail'" name="model"/>
+            <field eval="'_check_minimum_quant'" name="function"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(minutes=180)).strftime('%Y-%m-%d 07:00:00')"/>
+            <field eval="'()'" name="args"/>
+        </record>
+
+        <record id="stock_notification_send_mail_tree_view" model="ir.ui.view">
+            <field name="name">stock.notification.send.mail.tree</field>
+            <field name="model">stock.notification.send.mail</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Notification Send Mail">
+                    <field name="minimum_quant"/>
+                    <field name="email_address"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- add fields minimum_quant, email_adress in model stock.config.settings -->
+        <record id="stock_notification_send_mail" model="ir.ui.view">
+            <field name="name">stock.notification.send.mail.form</field>
+            <field name="model">stock.notification.send.mail</field>
+            <field name="arch" type="xml">
+                <form string="Stock Notification Send Mail">
+                    <group string="Minimum Quantity and Send Mail Address">
+                        <label for="minimum_quant"/>
+                        <div>
+                            <div>
+                                <field name="minimum_quant"/>
+                            </div>
+                        </div>
+                        <label for="email_address"/>
+                        <div>
+                            <div>
+                                <field name="email_address"/>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_stock_notification_send_mail" model="ir.actions.act_window">
+            <field name="name">Stock Notification Send Mail</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.notification.send.mail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_stock_notification_send_mail" id="menu_stock_notification_send_mail"
+                  name="Notification Send Mail" parent="stock.menu_stock_inventory_control"
+                  sequence="100"/>
+    </data>
+</odoo>

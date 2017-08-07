@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template_hierarchy" inherit_id="web.template">
+    <t t-name="MyView.buttons">
+        <t t-call="chart_config"/>
+    </t>
+    <t t-name="chart_config">
+         <div class="chart o_view_manager_content" id="basic-example"/>
+         <script>
+                new Treant(chart_config);
+         </script>
+    </t>
+</templates>

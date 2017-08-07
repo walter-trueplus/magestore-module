@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_button_add" t-operation="before">
+                <t t-if="widget.model == 'res.users'">
+                <button type="button" class="btn btn-primary btn-sm o_list_button_import_user">Import Users</button>
+            </t>
+        </t>
+    </t>
+</templates>

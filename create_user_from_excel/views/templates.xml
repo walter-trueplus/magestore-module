@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="Free Import" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="create_user_from_excel/static/src/js/button_import_users.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend_extend" name="hr assets extend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/employees_hierarchy_department/static/src/js/hierarchy_department.js"/>
+            <script type="text/javascript" src="/employees_hierarchy_department/static/src/js/Treant.js"/>
+            <script type="text/javascript" src="/employees_hierarchy_department/static/src/js/raphael.js"/>
+            <script type="text/javascript" src="/employees_hierarchy_department/static/src/js/button_hierarchy.js"/>
+            <link rel="stylesheet" href="/employees_hierarchy_department/static/src/css/hierarchy_department.css"/>
+            <link rel="stylesheet" href="/employees_hierarchy_department/static/src/css/Treant.css"/>
+        </xpath>
+    </template>
+
+</odoo>

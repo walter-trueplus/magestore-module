@@ -74,8 +74,7 @@ class import_users(models.TransientModel):
 
             sale = v[4]
             if sale in range(4) or sale == u'':
-                value = int(sale)
-                group_value = self.set_sel_group('Sales', value)
+                group_value = self.set_sel_group('Sales', sale)
                 if isinstance(group_value, basestring):
                     lst_err.append(group_value)
                 elif group_value != 99:
@@ -86,8 +85,7 @@ class import_users(models.TransientModel):
 
             project = v[5]
             if project in range(3) or project == u'':
-                value = int(project)
-                group_value = self.set_sel_group('Project', value)
+                group_value = self.set_sel_group('Project', project)
                 if isinstance(group_value, basestring):
                     lst_err.append(group_value)
                 elif group_value != 99:
@@ -98,8 +96,7 @@ class import_users(models.TransientModel):
 
             account = v[6]
             if account in range(4) or account == u'':
-                value = int(account)
-                group_value = self.set_sel_group('Accounting & Finance', value)
+                group_value = self.set_sel_group('Accounting & Finance', account)
                 if isinstance(group_value, basestring):
                     lst_err.append(group_value)
                 elif group_value != 99:
@@ -110,8 +107,7 @@ class import_users(models.TransientModel):
 
             employee = v[7]
             if employee in range(4) or employee == u'':
-                value = int(employee)
-                group_value = self.set_sel_group('Employees', value)
+                group_value = self.set_sel_group('Employees', employee)
                 if isinstance(group_value, basestring):
                     lst_err.append(group_value)
                 elif group_value != 99:
@@ -122,8 +118,7 @@ class import_users(models.TransientModel):
 
             timesheet = v[8]
             if timesheet in range(2) or timesheet == u'':
-                value = int(timesheet)
-                group_value = self.set_sel_group('Timesheets', value)
+                group_value = self.set_sel_group('Timesheets', timesheet)
                 if isinstance(group_value, basestring):
                     lst_err.append(group_value)
                 elif group_value != 99:
@@ -134,8 +129,7 @@ class import_users(models.TransientModel):
 
             admin = v[9]
             if admin in range(3) or admin == u'':
-                value = int(admin)
-                group_value = self.set_sel_group('Administration', value)
+                group_value = self.set_sel_group('Administration', admin)
                 if isinstance(group_value, basestring):
                     lst_err.append(group_value)
                 elif group_value != 99:

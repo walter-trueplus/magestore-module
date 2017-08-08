@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates>
+    <t t-extend="ImportView.import_button">
+        <t t-jquery=".o_button_import" t-operation="append">
+            <t t-if="widget.model == 'res.users'">
+                <br/>
+                <button class="btn btn-sm btn-default import_users" type="button">
+                    Import Users
+                </button>
+            </t>
+        </t>
+    </t>
+</templates>

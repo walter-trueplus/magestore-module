@@ -27,37 +27,42 @@ class import_users(models.TransientModel):
         for rx in range(1, sh.nrows):
             v = [sh.cell(rx, ry).value for ry in range(sh.ncols)]
             lst_err = []
-            vals = {}
             username = v[0]
-            if username == u'':
-                lst_err.append("The value of username column must not be"
-                               " null in row %s." % (rx))
-            else:
-                vals.update({'name': v[0]})
             login = v[1]
-            if login == u'':
-                lst_err.append("The value of login column must not be"
-                               " null in row %s." % (rx))
+            if username == u'' and login == u'':
+                lst_err.append("The value of username and email column must not be"
+                               " null in row %s." % (rx+1))
+                username += 'u'
+                login += 'u'
+                new_user = self.env['res.users'].create({'name': username, 'login': login})
+                user_obj = self.env['res.users'].search([('id', '=', new_user.id)])
+            elif username == u'' and login != u'':
+                lst_err.append("The value of username column must not be"
+                               " null in row %s." % (rx+1))
+                username += 'u'
+                new_user = self.env['res.users'].create({'name': username, 'login': v[1]})
+                user_obj = self.env['res.users'].search([('id', '=', new_user.id)])
+            elif username != u'' and login == u'':
+                lst_err.append("The value of email column must not be"
+                               " null in row %s." % (rx+1))
+                login += 'u'
+                new_user = self.env['res.users'].create({'name': v[0], 'login': login})
+                user_obj = self.env['res.users'].search([('id', '=', new_user.id)])
             else:
-                check_user = self.env['res.users'].search([('login', '=', login)])
-                if check_user:
-                    lst_err.append('Another user has this email address.')
-                else:
-                    vals.update({'login': v[1]})
+                new_user = self.env['res.users'].create({'name': v[0], 'login': v[1]})
+                user_obj = self.env['res.users'].search([('id', '=', new_user.id)])
+                if user_obj:
+                    check_user = self.env['res.users'].search([('login', '=', login)])
+                    if len(check_user) >= 2:
+                        lst_err.append('Users can not have the same email.')
 
             contact_creation = v[2]
-            contact_value = None
-            if not contact_creation or contact_creation in [u'false', 0, '', u'FALSE']:
-                contact_value = False
+            if contact_creation in [u'', 0.0, 'false', 'FALSE']:
+                self.unlink_group(user_obj, 'base.group_partner_manager')
             elif contact_creation in [u'true', 1.0, u'TRUE']:
-                contact_value = True
+                print 'aaa'
             else:
-                lst_err.append('Invalid value for contact_creation in row %s. \n' % (rx))
-            action_id = self.env['res.groups'].search([('name', '=', 'Contact Creation')], limit=1)
-            if action_id:
-                vals.update({
-                    'in_group_' + str(action_id.id): contact_value
-                })
+                lst_err.append('Invalid value for contact_creation in row %s. \n' % (rx+1))
 
             home_action = v[3]
             if home_action == u'project':
@@ -65,81 +70,89 @@ class import_users(models.TransientModel):
                 if not ir_action:
                     lst_err.append("Invalid value for home_action.")
                 else:
-                    vals.update({'action_id': ir_action[0].id})
+                    new_user.write({'action_id': ir_action[0].id})
             elif home_action == u'':
                 print home_action
             else:
                 lst_err.append("The value of home_action column must be"
-                               " 'project or null' in row %s." % (rx))
+                               " 'project or null' in row %s." % (rx+1))
 
             sale = v[4]
             if sale in range(4) or sale == u'':
-                group_value = self.set_sel_group('Sales', sale)
-                if isinstance(group_value, basestring):
-                    lst_err.append(group_value)
-                elif group_value != 99:
-                    vals.update(group_value)
+                if sale == u'' or int(sale) == 0:
+                    self.unlink_group(user_obj, 'sales_team.group_sale_manager')
+                    self.unlink_group(user_obj, 'sales_team.group_sale_salesman_all_leads')
+                    self.unlink_group(user_obj, 'sales_team.group_sale_salesman')
+                elif int(sale) == 1:
+                    self.unlink_group(user_obj, 'sales_team.group_sale_manager')
+                    self.unlink_group(user_obj, 'sales_team.group_sale_salesman_all_leads')
+                elif int(sale) == 2:
+                    self.unlink_group(user_obj, 'sales_team.group_sale_manager')
             else:
                 lst_err.append("The value of sale column must be"
-                               " '0,1,2,3 or null' in row %s." % (rx))
+                               " '0,1,2,3 or null' in row %s." % (rx+1))
 
             project = v[5]
             if project in range(3) or project == u'':
-                group_value = self.set_sel_group('Project', project)
-                if isinstance(group_value, basestring):
-                    lst_err.append(group_value)
-                elif group_value != 99:
-                    vals.update(group_value)
+                if project == u'' or int(project) == 0:
+                    self.unlink_group(user_obj, 'project.group_project_manager')
+                    self.unlink_group(user_obj, 'project.group_project_user')
+                elif int(project) == 1:
+                    self.unlink_group(user_obj, 'project.group_project_manager')
             else:
                 lst_err.append("The value of project column must be"
-                               " '0,1,2 or null' in row %s." % (rx))
+                               " '0,1,2 or null' in row %s." % (rx+1))
 
             account = v[6]
             if account in range(4) or account == u'':
-                group_value = self.set_sel_group('Accounting & Finance', account)
-                if isinstance(group_value, basestring):
-                    lst_err.append(group_value)
-                elif group_value != 99:
-                    vals.update(group_value)
+                if account == u'' or int(account) == 0:
+                    self.unlink_group(user_obj, 'account.group_account_manager')
+                    self.unlink_group(user_obj, 'account.group_account_user')
+                    self.unlink_group(user_obj, 'account.group_account_invoice')
+                elif int(account) == 1:
+                    self.unlink_group(user_obj, 'account.group_account_manager')
+                    self.unlink_group(user_obj, 'account.group_account_user')
+                elif int(account) == 2:
+                    self.unlink_group(user_obj, 'account.group_account_manager')
             else:
                 lst_err.append("The value of account column must be"
-                               " '0,1,2,3 or null' in row %s." % (rx))
+                               " '0,1,2,3 or null' in row %s." % (rx+1))
 
             employee = v[7]
             if employee in range(4) or employee == u'':
-                group_value = self.set_sel_group('Employees', employee)
-                if isinstance(group_value, basestring):
-                    lst_err.append(group_value)
-                elif group_value != 99:
-                    vals.update(group_value)
+                if employee == u'' or int(employee) == 0:
+                    self.unlink_group(user_obj, 'hr.group_hr_manager')
+                    self.unlink_group(user_obj, 'hr.group_hr_user')
+                    self.unlink_group(user_obj, 'base.group_user')
+                elif int(employee) == 1:
+                    self.unlink_group(user_obj, 'hr.group_hr_manager')
+                    self.unlink_group(user_obj, 'hr.group_hr_user')
+                elif int(employee) == 2:
+                    self.unlink_group(user_obj, 'hr.group_hr_manager')
             else:
                 lst_err.append("The value of employee column must be"
-                               " '0,1,2,3 or null' in row %s." % (rx))
+                               " '0,1,2,3 or null' in row %s." % (rx+1))
 
             timesheet = v[8]
             if timesheet in range(2) or timesheet == u'':
-                group_value = self.set_sel_group('Timesheets', timesheet)
-                if isinstance(group_value, basestring):
-                    lst_err.append(group_value)
-                elif group_value != 99:
-                    vals.update(group_value)
+                if timesheet == u'' or int(timesheet) == 0:
+                    self.unlink_group(user_obj, 'hr_timesheet.group_hr_timesheet_user')
             else:
                 lst_err.append(("The value of timesheet column must be "
-                                "'0,1 or null' in row %s.") % (rx))
+                                "'0,1 or null' in row %s.") % (rx+1))
 
             admin = v[9]
             if admin in range(3) or admin == u'':
-                group_value = self.set_sel_group('Administration', admin)
-                if isinstance(group_value, basestring):
-                    lst_err.append(group_value)
-                elif group_value != 99:
-                    vals.update(group_value)
+                if int(admin) == 1:
+                    self.add_user_in_group(user_obj, 'base.group_erp_manager')
+                if int(admin) == 2:
+                    self.add_user_in_group(user_obj, 'base.group_system')
             else:
                 lst_err.append(("The value of administrator column must be "
-                                "'0,1,2 or null' in row %s.") % (rx))
+                                "'0,1,2 or null' in row %s.") % (rx+1))
             data_err += lst_err
-            if not lst_err:
-                self.env['res.users'].sudo().create(vals)
+            if lst_err:
+                new_user.unlink()
         if data_err:
             file_err = self._export_users_errors(data_err)
             ir_model_data = self.env['ir.model.data']
@@ -159,6 +172,14 @@ class import_users(models.TransientModel):
                 'target': 'new',
             }
 
+    def unlink_group(self, user_obj, x):
+        group = self.env.ref(x, False)
+        group.write({'users': [(3, user_obj.id)]})
+
+    def add_user_in_group(self, user_obj, x):
+        group = self.env.ref(x)
+        group.write({'users': [(4, user_obj.id)]})
+
     @staticmethod
     def _export_users_errors(data_err):
         wb = xlwt.Workbook(encoding='utf8')
@@ -174,26 +195,6 @@ class import_users(models.TransientModel):
         data_error.close()
 
         return out
-
-    def set_sel_group(self, name, value):
-        category = self.env['ir.module.category'].search([('name', '=', name), ('write_uid', '=', 1)], limit=1)
-        res_group_ids = sorted(self.env['res.groups'].search([('category_id', '=', category.id)]).ids)
-        sel_group = 'sel_groups_'
-        # if this setting exist
-        if res_group_ids:
-            sel_group += '_'.join(list(map(str, res_group_ids)))
-            # if column has empty value
-            if value == '' or int(value) == 0:
-                return {sel_group: False}
-            # if column has valid value
-            elif int(value) and (value > 0 and value <= len(res_group_ids)):
-                return {sel_group: int(res_group_ids[int(value) - 1])}
-
-        else:
-            if not value:
-                return 99
-            # if value is empty and this settings don't exist --> no add value to vals
-            return 'Setting for %s doesn\'t exist ; ' % name.title()
 
     def reload_tree_view(self):
         return {

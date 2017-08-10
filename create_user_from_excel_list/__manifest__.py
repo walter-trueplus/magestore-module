@@ -12,7 +12,7 @@
 
     'website': "http://www.magestore.com",
 
-    'depends': ['base', 'hr', 'project', 'sale', 'sales_team', 'hr_timesheet', 'account'],
+    'depends': ['base', 'hr'],
 
     'data': [
         # 'security/ir.model.access.csv',

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Create users from excel list",
+    'name': "Create user from excel list",
 
     'description': """
         + Reading users excel list.
@@ -12,7 +12,7 @@
 
     'website': "http://www.magestore.com",
 
-    'depends': ['base', 'base_import', 'hr', 'project', 'sale', 'sales_team', 'hr_timesheet', 'account'],
+    'depends': ['base', 'hr', 'project', 'sale', 'sales_team', 'hr_timesheet', 'account'],
 
     'data': [
         # 'security/ir.model.access.csv',
@@ -20,4 +20,5 @@
         'views/templates.xml',
     ],
     'application': True,
+    'qweb': ['static/src/xml/button_import_users.xml'],
 }

@@ -1,0 +1,139 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="my_lunch_order_tree">
+            <field name="name">my.lunch.order.tree</field>
+            <field name="model">my.lunch.order</field>
+            <field name="arch" type="xml">
+                <tree string="Lunch Order">
+                    <field name="user_id"/>
+                    <field name="date"/>
+                    <field name="total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="my_lunch_order_form">
+            <field name="name">my.lunch.order.form</field>
+            <field name="model">my.lunch.order</field>
+            <field name="arch" type="xml">
+                <form string="Lunch Order">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="date"/>
+                                <field name="menu_id"/>
+                                <field name="list_food"/>
+                                <field name="total"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- my.lunch.orders action -->
+        <record model="ir.actions.act_window" id="act_my_lunch_order">
+            <field name="name">Lunch Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">my.lunch.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- my.menu.of.day tree view -->
+        <record model="ir.ui.view" id="my_menu_of_day_tree">
+            <field name="name">my.menu.of.day.tree.aa</field>
+            <field name="model">my.menu.of.day</field>
+            <field name="view_type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Menu of day">
+                    <field name="menu_name"/>
+                    <field name="total"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- my.menu.of.day form view -->
+        <record model="ir.ui.view" id="my_menu_of_day_form">
+            <field name="name">my.menu.of.day.form</field>
+            <field name="model">my.menu.of.day</field>
+            <field name="view_type">form</field>
+            <field name="arch" type="xml">
+                <form string="Menu of day">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="menu_name"/>
+                                <field name="date"/>
+                            </group>
+                            <field name="order_line"/>
+                            <group class='oe_subtotal_footer oe_right'>
+                                <field name="total"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- my.menu.of.day action -->
+        <record model="ir.actions.act_window" id="act_menu_of_the_day">
+            <field name="name">Menu of the day</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">my.menu.of.day</field>
+
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- lunch.product tree view -->
+        <record model="ir.ui.view" id="my_lunch_product_tree">
+            <field name="name">my.lunch.product.tree</field>
+            <field name="model">my.lunch.product</field>
+            <field name="arch" type="xml">
+                <tree editable="true">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="product_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- lunch.products action -->
+        <record model="ir.actions.act_window" id="act_product">
+            <field name="name">Lunch Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">my.lunch.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree, form</field>
+        </record>
+
+        <!-- lunch.order.lines tree view -->
+        <record model="ir.ui.view" id="my_lunch_order_line_tree">
+            <field name="name">my.lunch.order.line.tree</field>
+            <field name="model">my.lunch.order.line</field>
+            <field name="arch" type="xml">
+                <tree editable="true">
+                    <field name="product_id"/>
+                    <field name="price"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem name="Lunch Order" id="menu_root_lunch_order" sequence="50"/>
+
+        <menuitem name="Lunch Order" id="menu_lunch_order" parent="lunch_order.menu_root_lunch_order"/>
+
+        <menuitem name="Order" id="menu_new_lunch_order" parent="lunch_order.menu_lunch_order"
+                  action="act_my_lunch_order"/>
+        <menuitem name="Menu of the day" id="menu_of_the_day" parent="lunch_order.menu_lunch_order"
+                  action="act_menu_of_the_day"/>
+
+        <menuitem name="Product Categories" id="menu_product_categories" parent="lunch_order.menu_root_lunch_order"/>
+        <menuitem name="Product" id="menu_product" parent="lunch_order.menu_product_categories"
+                  action="act_product"/>
+
+    </data>
+</odoo>

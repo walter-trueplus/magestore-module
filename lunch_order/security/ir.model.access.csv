@@ -1,2 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_website_order_lunch_website_order_lunch,website_order_lunch.website_order_lunch,model_website_order_lunch_website_order_lunch,,1,0,0,0
+my_lunch_order_manager,"Order user",model_my_lunch_order,group_my_lunch_manager,1,1,1,1
+my_lunch_order_line_manager,"Order Line user",model_my_lunch_order_line,group_my_lunch_manager,1,1,1,1
+my_lunch_order_user,"Order user",model_my_lunch_order,group_my_lunch_user,1,1,1,0
+my_order_line_user,"Order Line user",model_my_lunch_order_line,group_my_lunch_user,1,1,1,1
+my_lunch_cashmove_manager,"Cashmove user",model_my_lunch_cashmove,group_my_lunch_manager,1,1,1,1
+my_lunch_cashmove_user,"Cashmove user",model_my_lunch_cashmove,group_my_lunch_user,1,0,0,0
+my_menu_of_day_manager,"Menu of day manager",model_my_menu_of_day,group_my_lunch_manager,1,1,1,1
+my_menu_of_day_user,"Menu of day user",model_my_menu_of_day,group_my_lunch_user,1,1,1,0

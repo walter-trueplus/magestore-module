@@ -9,10 +9,11 @@
     'author': "magestore.com",
     'website': "http://www.magestore.com",
 
-    'depends': ['base'],
+    'depends': ['base', 'product'],
 
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/lunch_order_security.xml',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
     ],

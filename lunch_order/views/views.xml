@@ -1,13 +1,18 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="my_lunch_order_tree">
+        <!-- For lunch.order -->
+        <record id="my_lunch_order_tree" model="ir.ui.view">
             <field name="name">my.lunch.order.tree</field>
             <field name="model">my.lunch.order</field>
             <field name="arch" type="xml">
-                <tree string="Lunch Order">
-                    <field name="user_id"/>
+                <tree string="Order lines Tree" create="false" edit="false">
                     <field name="date"/>
-                    <field name="total"/>
+                    <field name="user_id"/>
+                    <field name='state'/>
+                    <field name='total' sum="Total" string="Price"/>
+                    <button name="order" string="Order" type="object" icon="fa-phone text-success" attrs="{'invisible': ['|',('state','=','confirmed'),('state','=','ordered')]}"/>
+                    <button name="confirm" string="Receive" type="object" icon="fa-check text-success" attrs="{'invisible': [('state','!=','ordered')]}"/>
+                    <button name="cancel" string="Cancel" type="object" icon="fa-times-circle text-danger" attrs="{'invisible': [('state','=','cancelled')]}"/>
                 </tree>
             </field>
         </record>
@@ -17,33 +22,155 @@
             <field name="model">my.lunch.order</field>
             <field name="arch" type="xml">
                 <form string="Lunch Order">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
                     <sheet>
                         <group>
-                            <group>
-                                <field name="user_id"/>
-                                <field name="date"/>
-                                <field name="menu_id"/>
-                                <field name="list_food"/>
-                                <field name="total"/>
-                            </group>
+                            <field name="user_id"/>
+                            <field name="date"/>
+                            <field name="menu_id"/>
+                            <field name="list_food"/>
+                            <field name="total"/>
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <!-- my.lunch.orders action -->
         <record model="ir.actions.act_window" id="act_my_lunch_order">
             <field name="name">Lunch Order</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">my.lunch.order</field>
             <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="my_lunch_order_view_search" model="ir.ui.view">
+            <field name="name">my.lunch.order.search</field>
+            <field name="model">my.lunch.order</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <filter name='is_mine' string="My Orders" domain="[('user_id','=',uid)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="my_lunch_order_action_2" model="ir.actions.act_window">
+            <field name="name">Your Orders</field>
+            <field name="res_model">my.lunch.order</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="my_lunch_order_tree"/>
+            <field name="search_view_id" ref="my_lunch_order_view_search"/>
+            <field name="context">{"search_default_is_mine":1}</field>
+        </record>
+
+        <!-- For lunch.cashmove -->
+        <record id="my_lunch_cashmove_view_tree" model="ir.ui.view">
+            <field name="name">my.lunch.cashmove.tree</field>
+            <field name="model">my.lunch.cashmove</field>
+            <field name="arch" type="xml">
+                <tree string="cashmove tree">
+                    <field name="date"/>
+                    <field name="user_id"/>
+                    <field name="amount" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="my_lunch_cashmove_view_tree_2" model="ir.ui.view">
+            <field name="name">my.lunch.cashmove.tree</field>
+            <field name="model">my.lunch.cashmove</field>
+            <field name="arch" type="xml">
+                <tree string="cashmove tree" create='false'>
+                    <field name="date"/>
+                    <field name="amount" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- my.lunch.cashmove form view -->
+        <record id="my_lunch_cashmove_view_form" model="ir.ui.view">
+            <field name="name">my.lunch.cashmove.form</field>
+            <field name="model">my.lunch.cashmove</field>
+            <field name="arch" type="xml">
+                <form string="cashmove form">
+                    <sheet>
+                        <group>
+                            <field name="user_id" required="1"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- my.lunch.cashmove search view -->
+        <record id="my_lunch_cashmove_view_search" model="ir.ui.view">
+            <field name='name'>my.lunch.cashmove.search</field>
+            <field name='model'>my.lunch.cashmove</field>
+            <field name='arch' type='xml'>
+                <search string="lunch employee payment">
+                    <filter name='is_mine_group' string="My Account grouped" domain="[('user_id','=',uid)]" context="{'group_by':'user_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- my.lunch.cashmove action -->
+        <record model="ir.actions.act_window" id="act_your_lunch_account">
+            <field name="name">Your Account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">my.lunch.cashmove</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="my_lunch_cashmove_view_search"/>
+            <field name="view_id" ref="my_lunch_cashmove_view_tree_2"/>
+            <field name="context">{"search_default_is_mine_group":1}</field>
+            <field name="help" type="html">
+              <p>
+                Here you can see your cash moves.<br/>A cash moves can be either an expense or a payment.
+                An expense is automatically created when an order is received while a payment is a reimbursement to the company encoded by the manager.
+              </p>
+            </field>
+        </record>
+
+        <!-- search view for Control Accounts -->
+        <record id="my_lunch_cashmove_view_search_2" model="ir.ui.view">
+            <field name='name'>my.lunch.cashmove.search</field>
+            <field name='model'>my.lunch.cashmove</field>
+            <field name='arch' type='xml'>
+                <search string="lunch cashmove">
+                    <field name="user_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name='group_by_user' string="By Employee" context="{'group_by':'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--Action for Control Accounts-->
+        <record id="act_menu_control_account" model="ir.actions.act_window">
+            <field name="name">Control Accounts</field>
+            <field name="res_model">my.lunch.cashmove</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="my_lunch_cashmove_view_search_2"/>
+            <field name="context">{"search_default_group_by_user":1}</field>
+            <field name="view_id" ref="my_lunch_cashmove_view_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to create a new payment.
+            </p>
+              <p>
+                A cashmove can either be an expense or a payment.<br/>
+                An expense is automatically created at the order receipt.<br/>
+                A payment represents the employee reimbursement to the company.
+              </p>
+            </field>
         </record>
 
         <!-- my.menu.of.day tree view -->
         <record model="ir.ui.view" id="my_menu_of_day_tree">
-            <field name="name">my.menu.of.day.tree.aa</field>
+            <field name="name">my.menu.of.day.tree</field>
             <field name="model">my.menu.of.day</field>
             <field name="view_type">tree</field>
             <field name="arch" type="xml">
@@ -80,36 +207,62 @@
 
         <!-- my.menu.of.day action -->
         <record model="ir.actions.act_window" id="act_menu_of_the_day">
-            <field name="name">Menu of the day</field>
+            <field name="name">Daily Menu</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">my.menu.of.day</field>
-
             <field name="view_mode">tree,form</field>
         </record>
 
-        <!-- lunch.product tree view -->
-        <record model="ir.ui.view" id="my_lunch_product_tree">
-            <field name="name">my.lunch.product.tree</field>
-            <field name="model">my.lunch.product</field>
+        <!-- product.template inherit form view -->
+        <record id="product_template_inherit_form" model="ir.ui.view">
+            <field name="name">product.template.inherit.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
-                <tree editable="true">
-                    <field name="name"/>
-                    <field name="description"/>
-                    <field name="product_price"/>
-                </tree>
+                <xpath expr='//div[@name="options"]' position='inside'>
+                    <div>
+                        <field name="is_food"/>
+                        <label for="is_food"/>
+                    </div>
+                </xpath>
             </field>
         </record>
 
-        <!-- lunch.products action -->
-        <record model="ir.actions.act_window" id="act_product">
-            <field name="name">Lunch Product</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">my.lunch.product</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree, form</field>
+        <record id="product_template_search_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.inherit.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr='//search' position='inside'>
+                    <filter string="Is Food" name="filter_is_food" domain="[('is_food','=',1)]"/>
+                </xpath>
+            </field>
         </record>
 
-        <!-- lunch.order.lines tree view -->
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="context">{"search_default_filter_to_sell":1,"search_default_filter_is_food":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p>
+                <p>
+                    You must define a product for everything you sell, whether it's a physical product, a consumable or
+                    a service you offer to customers.
+                </p>
+                <p>
+                    The product form contains information to simplify the sale process: price, notes in the quotation,
+                    accounting data, procurement methods, etc.
+                </p>
+            </field>
+        </record>
+
+        <!-- lunch.order.line tree view -->
         <record model="ir.ui.view" id="my_lunch_order_line_tree">
             <field name="name">my.lunch.order.line.tree</field>
             <field name="model">my.lunch.order.line</field>
@@ -124,16 +277,29 @@
 
         <menuitem name="Lunch Order" id="menu_root_lunch_order" sequence="50"/>
 
-        <menuitem name="Lunch Order" id="menu_lunch_order" parent="lunch_order.menu_root_lunch_order"/>
+        <menuitem name="Lunch Order" id="menu_lunch_order" parent="lunch_order.menu_root_lunch_order"
+                  sequence="1" groups="group_my_lunch_user"/>
 
-        <menuitem name="Order" id="menu_new_lunch_order" parent="lunch_order.menu_lunch_order"
-                  action="act_my_lunch_order"/>
-        <menuitem name="Menu of the day" id="menu_of_the_day" parent="lunch_order.menu_lunch_order"
+        <menuitem name="New Order" id="menu_new_lunch_order" parent="lunch_order.menu_lunch_order"
+                  action="act_my_lunch_order" sequence="2"/>
+        <menuitem name="Previous Order" id="my_previous_order" parent="lunch_order.menu_lunch_order"
+                  action="my_lunch_order_action_2" sequence="5"/>
+        <menuitem name="Your Lunch Account" id="menu_your_lunch_account" parent="lunch_order.menu_lunch_order"
+                  action="act_your_lunch_account"/>
+
+
+        <menuitem name="Manager" id="menu_manager" parent="lunch_order.menu_root_lunch_order"
+                  sequence="50" groups="group_my_lunch_manager"/>
+
+        <menuitem name="Daily Menu" id="menu_of_the_day" parent="lunch_order.menu_manager"
                   action="act_menu_of_the_day"/>
+        <menuitem name="Control Accounts" id="menu_control_account" parent="lunch_order.menu_manager"
+                  action="act_menu_control_account"/>
 
-        <menuitem name="Product Categories" id="menu_product_categories" parent="lunch_order.menu_root_lunch_order"/>
-        <menuitem name="Product" id="menu_product" parent="lunch_order.menu_product_categories"
-                  action="act_product"/>
+        <menuitem name="Configuration" id="menu_configuration" parent="lunch_order.menu_root_lunch_order"
+                  sequence="100" groups="group_my_lunch_manager"/>
+        <menuitem action="product.product_template_action" id="menu_product_action"
+                  parent="lunch_order.menu_configuration"/>
 
     </data>
 </odoo>

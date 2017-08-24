@@ -91,7 +91,7 @@ class my_menu_of_day(models.Model):
     order_line = fields.One2many('my.lunch.order.line', 'order_id', 'List of food')
     date = fields.Date(default=fields.Date.today(), required=True)
     total = fields.Float('Total', readonly=True, compute='onchange_order_line')
-    menu_name = fields.Char('Menu', required=True, help='Enter a number in this field')
+    menu_name = fields.Char('Menu', required=True)
 
     @api.depends('order_line')
     def onchange_order_line(self):
